@@ -1,0 +1,14 @@
+[
+ {
+  "id": "c_seed_int",
+  "ts": 1793147000000,
+  "archivo": "GDL - Pruebas Interruptores_v2.xlsm",
+  "fname": "GDL - Pruebas Interruptores_v2_sin_macros.xlsx",
+  "corte": "2026-01-10",
+  "equipos": 57,
+  "filas": 470,
+  "duplicados": 0,
+  "nuevas": 141,
+  "empeoraron": []
+ }
+]

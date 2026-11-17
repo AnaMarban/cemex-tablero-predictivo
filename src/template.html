@@ -1,0 +1,1189 @@
+<title>__BRAND__</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: white console; brand bar + module nav, sticky filters on desktop, summary before detail */
+:root{
+  --bg:#ffffff;--panel:#ffffff;--panel-2:#eef2f5;--line:#d9e0e6;--line-strong:#b9c4ce;
+  --fg:#16202a;--fg-2:#4c5a68;--fg-3:#7a8794;
+  --accent:#0e5e7a;--accent-soft:#e3f0f5;--brand:#0b2d8f;--brand-2:#1d47c4;--brand-soft:#e9effb;
+  --p1:#c62f2f;--p1-soft:#fbe4e2;--p2:#b86e00;--p2-soft:#fcefd6;--dl:#2f7d4f;--dl-soft:#e1f1e6;--na:#8a96a2;
+  --font-d:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --font-b:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --font-m:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --r:8px;color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-b);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--panel)}
+h1,h2,h3{font-family:var(--font-d);font-weight:600;margin:0;text-wrap:balance;letter-spacing:.01em}
+h2{font-size:20px}h3{font-size:16px}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line-strong);background:var(--panel);border-radius:var(--r);padding:7px 12px;display:inline-flex;align-items:center;gap:6px}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.link{border:0;background:none;padding:0;color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+a{color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+select,input[type=text],input[type=date],input[type=month],input[type=search]{border:1px solid var(--line-strong);background:var(--panel);border-radius:var(--r);padding:7px 10px;min-width:0}
+.mono{font-family:var(--font-m);font-variant-numeric:tabular-nums}
+.wrap{max-width:1320px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.lbl{font-family:var(--font-d);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+.sub{font-size:13px;color:var(--fg-2)}
+.hint{font-size:13px;color:var(--fg-3)}
+
+header.top{background:var(--panel);border-bottom:1px solid var(--line);position:relative;z-index:20}
+.hrow{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-block:10px}
+.hrow .grow{flex:1 1 200px;min-width:0}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:30px;width:auto;display:block}
+.brand .bt{display:grid;line-height:1.15}
+.brand .bt span{font-size:12px;color:var(--fg-3);letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-d)}
+.corte{font-size:13px;color:var(--fg-2)}
+.corte b{color:var(--fg);font-weight:600}
+nav.crumbs{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-block:0 10px}
+nav.crumbs button{border-radius:999px;padding:5px 12px;font-size:14px}
+nav.crumbs #btnHome{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600;padding:6px 14px 6px 10px}
+nav.crumbs #btnHome:hover{background:var(--brand-2)}
+nav.crumbs .clogo{width:34px;height:34px;border-radius:50%;display:block}
+/* filtros de opción múltiple */
+.ms{position:relative}
+.ms .msb{min-width:190px;justify-content:space-between;max-width:280px}
+.ms .msb.on{border-color:var(--accent);background:var(--accent-soft)}
+.ms .msb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ms .msp{position:absolute;z-index:40;top:calc(100% + 4px);left:0;min-width:260px;max-width:min(92vw,380px);max-height:340px;overflow:auto;background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--r);box-shadow:0 8px 24px rgb(0 0 0 / .15);padding:6px;display:grid}
+.ms .msp label{display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:14px}
+.ms .msp label:hover{background:var(--panel-2)}
+.ms .msp .msall{border-bottom:1px solid var(--line);font-weight:600;border-radius:6px 6px 0 0}
+.xl-ico{flex:none}
+#lsTbl td{vertical-align:top}
+#lsTbl .dl{display:grid;gap:4px;min-width:220px}
+#lsTbl .dl b{font-weight:600}
+nav.crumbs .ct{font-family:var(--font-d);font-size:18px;font-weight:600}
+nav.crumbs .cg{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);font-family:var(--font-d)}
+.home{display:grid;gap:22px;max-width:1100px;margin:0 auto;width:100%}
+body.homemode{background:var(--brand-soft)}
+body.homemode header.top{border-bottom:3px solid var(--brand)}
+.home .ht{background:linear-gradient(120deg,var(--brand),var(--brand-2));color:#fff;border-radius:16px;padding:26px 18px 22px}
+.home .ht .sub{color:rgb(255 255 255 / .88);font-size:14px}
+.home .ht{text-align:center;display:grid;gap:4px;padding-block:8px 4px}
+.home .ht h2{font-size:34px;letter-spacing:.02em}
+.home .ht h2::after{content:"";display:block;width:120px;height:3px;background:#fff;margin:10px auto 0;border-radius:2px;opacity:.8}
+.grp{display:grid;gap:10px}
+.grp>.gh{display:flex;align-items:center;gap:12px}
+.grp>.gh .lbl{font-size:14px;color:var(--brand);font-weight:700}
+.grp>.gh::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,var(--brand),transparent);opacity:.35}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:12px}
+.tile{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;align-items:start;text-align:left;padding:16px;border-radius:12px;border:1px solid var(--line);border-top:4px solid var(--brand);background:var(--panel);min-height:150px;width:100%;box-shadow:0 1px 3px rgb(11 45 143 / .08)}
+.tile .tbody{display:grid;gap:10px;align-content:start;min-width:0}
+.tile .tlogo{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);overflow:hidden}
+.tile .tlogo img{width:100%;height:100%;object-fit:cover;display:block}
+.tile:hover{border-color:var(--brand);background:#f4f7fe}
+.tile .tn{font-family:var(--font-d);font-size:20px;font-weight:600;color:var(--brand)}
+.tile .td{font-size:13px;color:var(--fg-3)}
+.tile .tb2{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--panel-2)}
+.tile .tb2 i{display:block;height:100%}
+.tile .tc{display:flex;gap:6px;flex-wrap:wrap;font-size:13px}
+.tile.nodata .tn{color:var(--fg-2)}
+.subnav{border-top:1px solid var(--line)}
+nav.tabs{display:flex;gap:2px;overflow-x:auto}
+nav.tabs button{border:0;border-bottom:3px solid transparent;border-radius:0;background:none;padding:9px 12px;font-family:var(--font-d);font-size:15px;color:var(--fg-2);white-space:nowrap}
+nav.tabs button[aria-selected=true]{color:var(--fg);border-bottom-color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-block:10px;border-top:1px solid var(--line)}
+.filters select,.filters input{font-size:14px;padding:5px 8px}
+.chip{border-radius:999px;padding:4px 10px;font-size:13px;font-weight:600;border:1px solid var(--line-strong);background:var(--panel)}
+.chip[aria-pressed=false]{opacity:.5;text-decoration:line-through}
+.chip.P1{color:var(--p1);border-color:var(--p1)}.chip.P2{color:var(--p2);border-color:var(--p2)}.chip.DL{color:var(--dl);border-color:var(--dl)}
+.tog{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--fg-2)}
+.stick{position:relative;z-index:19;background:var(--panel);border-bottom:1px solid var(--line)}
+@media (min-width:900px){.stick{position:sticky;top:env(safe-area-inset-top,0px)}}
+
+main{padding-block:20px 60px;display:grid;gap:20px}
+.banner{border:1px solid var(--line-strong);background:var(--panel-2);border-radius:var(--r);padding:10px 14px;font-size:14px;color:var(--fg-2)}
+.banner.warn{border-color:var(--p2);background:var(--p2-soft);color:var(--fg)}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:0 var(--r) var(--r) 0;border-left:5px solid var(--na);padding:14px 16px;display:grid;gap:2px;text-align:left;width:100%;align-content:start}
+.kpi .v{font-family:var(--font-d);font-size:38px;line-height:1.05;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:13px;color:var(--fg-2)}
+.kpi .go{font-size:13px;color:var(--accent);font-weight:600}
+.kpi.P1{border-left-color:var(--p1)}.kpi.P1 .v{color:var(--p1)}
+.kpi.P2{border-left-color:var(--p2)}.kpi.P2 .v{color:var(--p2)}
+.kpi.DL{border-left-color:var(--dl)}.kpi.DL .v{color:var(--dl)}
+.kpi.W{border-left-color:var(--accent)}.kpi.W .v{color:var(--accent)}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0;display:grid;gap:10px;align-content:start}
+.ch{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.chartbox{position:relative;height:280px}
+.chartbox.tall{height:340px}
+.donutwrap{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:560px){.donutwrap{grid-template-columns:1fr}}
+.dleg{display:grid;gap:8px}
+.dleg button{justify-content:space-between;width:100%;text-align:left}
+.dleg .n{font-family:var(--font-d);font-size:22px;font-weight:600}
+.areas{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.areas button{border-radius:999px;padding:4px 12px;font-size:13px}
+.areas button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.areagrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
+.acard{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:center}
+.acard .nums{display:grid;gap:3px;font-size:14px}
+.acard .nums button{justify-content:flex-start;padding:2px 8px;font-size:13px;border-radius:6px}
+
+.pill{display:inline-block;min-width:34px;text-align:center;border-radius:5px;padding:1px 6px;font-family:var(--font-m);font-size:12px;font-weight:500}
+.pill.P1{background:var(--p1-soft);color:var(--p1)}.pill.P2{background:var(--p2-soft);color:var(--p2)}.pill.DL{background:var(--dl-soft);color:var(--dl)}.pill.NA{background:var(--panel-2);color:var(--fg-3)}
+.trend{font-family:var(--font-m);font-size:12px}
+.trend.up{color:var(--p1)}.trend.down{color:var(--dl)}.trend.eq{color:var(--fg-3)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-family:var(--font-d);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg-2);text-align:left;padding:9px 10px;border-bottom:1px solid var(--line-strong);background:var(--panel-2);white-space:nowrap;user-select:none}
+th[data-k]{cursor:pointer}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.row{cursor:pointer}
+tr.row:hover td{background:var(--accent-soft)}
+td.num{text-align:right;font-family:var(--font-m);font-variant-numeric:tabular-nums;white-space:nowrap}
+.eqn{font-weight:600}
+.days{font-family:var(--font-m);font-weight:500}
+.agebar{height:6px;border-radius:3px;background:var(--panel-2);margin-top:4px;overflow:hidden;max-width:110px;margin-left:auto}
+.agebar i{display:block;height:100%}
+.alist{display:grid}
+.aitem{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 4px;border:0;border-top:1px solid var(--line);border-radius:0;cursor:pointer;text-align:left;background:none;width:100%}
+.aitem:hover{background:var(--accent-soft)}
+.aitem:first-child{border-top:0}
+.empty{padding:22px;text-align:center;color:var(--fg-3);font-size:14px}
+
+.diag{display:grid;gap:12px}
+.dcard{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--na);border-radius:0 12px 12px 0;padding:14px 16px;display:grid;gap:8px}
+.dcard.P1{border-left-color:var(--p1)}.dcard.P2{border-left-color:var(--p2)}.dcard.DL{border-left-color:var(--dl)}
+.dcard .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.finding{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:4px 14px;padding-top:8px;border-top:1px dashed var(--line)}
+@media (max-width:640px){.finding{grid-template-columns:1fr}}
+.finding .k{font-weight:600}
+.rec{font-size:14px}
+.rec b{font-weight:600;color:var(--accent)}
+.com{font-size:14px;color:var(--fg-2);font-style:italic}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{font-size:13px;padding:5px 10px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{font-weight:600}
+.seg button[aria-pressed=true].P1{background:var(--p1);border-color:var(--p1);color:#fff}
+.seg button[aria-pressed=true].P2{background:var(--p2);border-color:var(--p2);color:#fff}
+.seg button[aria-pressed=true].DL{background:var(--dl);border-color:var(--dl);color:#fff}
+
+.hm{display:grid;gap:2px;font-size:12px;min-width:560px}
+.hm div{padding:5px 4px;border-radius:3px;text-align:center;font-family:var(--font-m)}
+.hm .hl{text-align:left;font-family:var(--font-b);color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hm .hh{font-family:var(--font-d);color:var(--fg-2);font-size:12px;line-height:1.15;align-self:end}
+
+.overlay{position:fixed;inset:0;z-index:40;background:rgb(10 16 22 / .45)}
+#drawer{display:flex;justify-content:flex-end}
+#drawer .dp{width:min(720px,100%);height:100%;overflow-y:auto;background:var(--bg);padding:calc(20px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) 18px;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-content:start}
+.dhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.meta div{background:var(--panel-2);border-radius:var(--r);padding:8px 10px}
+.meta .lbl{display:block}
+.timeline{display:flex;align-items:flex-start;overflow-x:auto;padding:8px 2px}
+.tl{display:grid;justify-items:center;gap:3px;min-width:84px;position:relative;font-size:12px;cursor:pointer;background:none;border:0;padding:0 2px;border-radius:6px}
+.tl::before{content:"";position:absolute;top:9px;left:-50%;width:100%;height:2px;background:var(--line-strong);z-index:0}
+.tl:first-child::before{display:none}
+.tl .dot{width:20px;height:20px;border-radius:50%;z-index:1;border:3px solid var(--bg)}
+.tl[aria-current=true] .dot{box-shadow:0 0 0 2px var(--fg)}
+.toma{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.toma>summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 12px;background:var(--panel-2)}
+.toma>summary::-webkit-details-marker{display:none}
+.toma>summary::after{content:"▸";margin-left:auto;color:var(--fg-3)}
+.toma[open]>summary::after{content:"▾"}
+.toma .tb{padding:10px 12px;display:grid;gap:8px}
+.comp{border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;display:grid;gap:3px}
+.comp.bad{border-left:4px solid var(--p2);border-radius:0 var(--r) var(--r) 0}
+
+.dlg{display:grid;place-items:center;padding:16px}
+.mp{width:min(980px,100%);max-height:90vh;overflow:auto;background:var(--panel);border-radius:12px;border:1px solid var(--line);padding:22px;display:grid;gap:14px}
+.mp.sm{width:min(640px,100%)}
+.drop{border:2px dashed var(--line-strong);border-radius:12px;padding:26px 16px;text-align:center;display:grid;gap:6px;justify-items:center;color:var(--fg-2);cursor:pointer}
+.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.steps{display:grid;gap:10px;counter-reset:s}
+.step{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start}
+.step::before{counter-increment:s;content:counter(s);width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-family:var(--font-d);font-weight:600}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.sumgrid div{background:var(--panel-2);border-radius:var(--r);padding:8px 10px}
+.sumgrid b{display:block;font-family:var(--font-d);font-size:24px}
+.prog{height:8px;background:var(--panel-2);border-radius:4px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.orig td,.orig th{font-size:12px;white-space:nowrap}
+.orig td.w{white-space:normal;min-width:240px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--fg);color:#fff;padding:10px 16px;border-radius:var(--r);z-index:60;font-size:14px;max-width:calc(100% - 32px)}
+.err{color:var(--p1);font-size:13px;min-height:18px}
+.modempty{display:grid;gap:14px;justify-items:start;max-width:70ch}
+.modempty ul{margin:0;padding-left:20px;color:var(--fg-2)}
+@media (max-width:640px){.kpi .v{font-size:30px}.hide-sm{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="hrow">
+      <div class="brand">__LOGO__<div class="bt"><h1 style="font-size:22px">Mantenimiento predictivo</h1><span>Planta Guadalajara</span></div></div>
+      <div class="grow corte" id="corte">Cargando historial…</div>
+      <button class="primary" id="btnUpload" type="button"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Actualizar</button>
+      <button id="btnExport" type="button" hidden><svg class="xl-ico" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="18" rx="3" fill="#1d6f42"/><path d="M13 3h6a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-6z" fill="#33a165"/><path d="M6.5 8l4 8m0-8l-4 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M15 8h4M15 12h4M15 16h4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".9"/></svg>Exportar a Excel</button>
+    </div>
+    <nav class="crumbs" id="crumbs" aria-label="Ubicación" hidden>
+      <button type="button" id="btnHome"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 9.5V20h5v-5.5h3V20h5V9.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Inicio</button><img class="clogo" id="crumbL" alt="" hidden><span class="cg" id="crumbG"></span><span class="ct" id="crumbT"></span>
+    </nav>
+  </div>
+</header>
+
+<div class="stick" id="vibBar">
+  <div class="wrap">
+    <nav class="tabs" role="tablist" id="tabs">
+      <button role="tab" data-t="resumen" aria-selected="true">Resumen</button>
+      <button role="tab" data-t="areas" aria-selected="false">Ver por áreas</button>
+      <button role="tab" data-t="diag" aria-selected="false">Diagnóstico por estatus</button>
+      <button role="tab" data-t="equipos" aria-selected="false">Equipos</button>
+      <button role="tab" data-t="lista" aria-selected="false">Lista de diagnóstico</button>
+      <button role="tab" data-t="rutas" aria-selected="false">Rutas pendientes</button>
+      <button role="tab" data-t="cargas" aria-selected="false">Actualizaciones</button>
+    </nav>
+    <div class="filters" id="filters">
+      <span class="lbl">Filtros</span>
+      <div class="ms" id="msArea"><button type="button" class="msb" aria-haspopup="true" aria-expanded="false" aria-label="Áreas"><span>Todas las áreas</span>▾</button><div class="msp" hidden></div></div>
+      <div class="ms" id="msSec"><button type="button" class="msb" aria-haspopup="true" aria-expanded="false" aria-label="Secciones"><span>Todas las secciones</span>▾</button><div class="msp" hidden></div></div>
+      <button class="chip P1" data-s="P1" aria-pressed="true" type="button">P1</button>
+      <button class="chip P2" data-s="P2" aria-pressed="true" type="button">P2</button>
+      <button class="chip DL" data-s="DL" aria-pressed="true" type="button">DL</button>
+      <label class="tog"><input type="checkbox" id="fAct" checked> Solo activos</label>
+      <label class="tog">Monitoreo del <input type="date" id="fD1"></label>
+      <label class="tog">al <input type="date" id="fD2"></label>
+      <input type="search" id="fQ" placeholder="Buscar equipo, síntoma…" style="flex:1 1 180px">
+      <button type="button" id="fClear">Limpiar</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div id="dbBanner" class="banner warn" hidden></div>
+
+  <section id="v-resumen" data-view>
+    <div style="display:grid;gap:20px">
+      <div class="kpis" id="kpis"></div>
+      <div class="grid2">
+        <div class="card">
+          <div class="ch"><h2>Estatus de los equipos</h2><span class="hint">Clic en un color para ver su diagnóstico</span></div>
+          <div class="donutwrap"><div class="chartbox" style="height:220px"><canvas id="cDonut"></canvas></div><div class="dleg" id="dleg"></div></div>
+          <div class="areas" id="areaChips"></div>
+        </div>
+        <div class="card">
+          <div class="ch"><h2>Atender primero</h2><span class="hint">P1 y P2 con más días en falla</span></div>
+          <div class="alist" id="attn"></div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card"><div class="ch"><h2>Estatus por área</h2><button type="button" class="link" data-goto="areas">Ver por áreas</button></div><div class="hint">Clic en una barra para abrir el diagnóstico de esa área y estatus</div><div class="chartbox"><canvas id="cArea"></canvas></div></div>
+        <div class="card"><div class="ch"><h2>Empeoraron</h2><span class="hint">Comparado con su muestra anterior</span></div><div class="alist" id="worse"></div></div>
+        <div class="card"><div class="ch"><h2>Modo de falla</h2><span class="hint">Síntomas en equipos P1/P2 · clic para buscar</span></div><div class="chartbox"><canvas id="cModo"></canvas></div></div>
+        <div class="card"><div class="ch"><h2>Monitoreos por mes</h2><span class="hint">Resultado de cada muestra registrada</span></div><div class="chartbox"><canvas id="cMes"></canvas></div></div>
+        <div class="card"><div class="ch"><h2>Antigüedad de la falla</h2><span class="hint">Días desde que salió de DL</span></div><div class="chartbox"><canvas id="cAge"></canvas></div></div>
+        <div class="card"><div class="ch"><h2>Sección × modo de falla</h2><span class="hint">Clic en una sección para filtrarla</span></div><div style="overflow-x:auto" id="heat"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-areas" data-view hidden>
+    <div style="display:grid;gap:14px">
+      <div class="ch"><h2>Ver por áreas</h2><span class="hint">Clic en un estatus para abrir su diagnóstico</span></div>
+      <div class="areagrid" id="areaGrid"></div>
+      <div class="card"><div class="ch"><h2 id="secTitle">Secciones</h2><span class="hint">Equipos por estatus</span></div><div class="chartbox tall"><canvas id="cSec"></canvas></div></div>
+    </div>
+  </section>
+
+  <section id="v-diag" data-view hidden>
+    <div style="display:grid;gap:14px">
+      <div class="ch"><h2 id="diagTitle">Diagnóstico por estatus</h2>
+        <div class="seg" id="diagSeg"><button type="button" class="P1" data-d="P1">P1</button><button type="button" class="P2" data-d="P2">P2</button><button type="button" class="DL" data-d="DL">DL</button></div></div>
+      <p class="sub" style="margin:0" id="diagSub"></p>
+      <div class="diag" id="diagList"></div>
+    </div>
+  </section>
+
+  <section id="v-equipos" data-view hidden>
+    <div style="display:grid;gap:12px">
+      <div class="ch"><h2 id="eqTitle">Equipos</h2><span class="hint">Clic en un equipo para su historial completo. Clic en un encabezado para ordenar.</span></div>
+      <div class="tbl-wrap"><table id="eqTbl"><thead><tr>
+        <th data-k="rank">Estatus</th><th data-k="equipo">Equipo</th><th data-k="seccion" class="hide-sm">Sección / área</th>
+        <th data-k="fecha">Último monitoreo</th><th data-k="desde">Falla desde</th><th data-k="dias">Días</th>
+        <th data-k="sint">Diagnóstico principal</th><th data-k="ntomas">Muestras</th><th data-k="trend">Tendencia</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="v-lista" data-view hidden>
+    <div style="display:grid;gap:12px">
+      <div class="ch"><h2 id="lsTitle">Lista de diagnóstico</h2><span class="hint">Cada equipo con su sección, diagnóstico y recomendación. Clic en un renglón para ver su historial.</span></div>
+      <div class="tbl-wrap"><table id="lsTbl"><thead><tr><th>Estatus</th><th>Equipo</th><th>Sección</th><th>Diagnóstico</th><th>Recomendación</th><th>Último monitoreo</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="v-rutas" data-view hidden>
+    <div style="display:grid;gap:16px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><h2>Rutas pendientes</h2><label class="tog">Mes <input type="month" id="rMes"></label><span class="sub" id="rInfo"></span></div>
+      <div class="kpis" id="rKpis"></div>
+      <div class="card"><div class="ch"><h2>Pendientes por sección</h2><span class="hint">Equipos sin muestra en el mes</span></div><div class="chartbox tall"><canvas id="cRuta"></canvas></div></div>
+      <div id="rList" class="grid2"></div>
+    </div>
+  </section>
+
+  <section id="v-cargas" data-view hidden>
+    <div style="display:grid;gap:12px">
+      <h2>Actualizaciones y archivos originales</h2>
+      <p class="sub" style="margin:0;max-width:75ch">Cada archivo que se carga queda guardado aquí tal como salió de Orios. Cada muestra de cada equipo apunta al archivo del que salió, así que siempre puedes revisar el dato en su formato original.</p>
+      <div class="tbl-wrap"><table><thead><tr><th>Fecha de carga</th><th>Archivo</th><th>Corte</th><th>Equipos</th><th>Duplicados quitados</th><th>Muestras nuevas</th><th>Empeoraron</th><th>Original</th></tr></thead><tbody id="cgBody"></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="v-empty" data-view hidden>
+    <div class="card modempty" id="emptyBox"></div>
+  </section>
+
+  <section id="v-home" data-view hidden>
+    <div class="home" id="homeBox"></div>
+  </section>
+</main>
+
+<div id="drawer" class="overlay" hidden><div class="dp" id="dp" role="dialog" aria-modal="true" aria-labelledby="dTitle"></div></div>
+
+<div id="modal" class="overlay dlg" hidden>
+  <div class="mp sm" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 id="mTitle">Actualizar datos</h2><button type="button" id="mClose">Cerrar</button></div>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<div id="origDlg" class="overlay dlg" hidden>
+  <div class="mp" role="dialog" aria-modal="true" aria-labelledby="oTitle">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><div><h2 id="oTitle">Formato original</h2><div class="sub" id="oSub"></div></div><button type="button" id="oClose">Cerrar</button></div>
+    <div class="acts" id="oActs"></div>
+    <div class="tbl-wrap"><table class="orig" id="oTbl"></table></div>
+  </div>
+</div>
+<div id="toast" class="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+"use strict";
+const REPAIR=__REPAIR__;
+const SEED=__SEED__;
+const ORIOS_URL="https://cemex.oriosmpc.mx/";
+const FFFD=String.fromCharCode(0xFFFD);
+const RANK={DL:0,P2:1,P1:2};
+const STN_DEF={P1:"P1 · situación de emergencia",P2:"P2 · fuera de límites permisibles",DL:"DL · dentro de límites"},LBL_DEF={P1:"P1",P2:"P2",DL:"DL"};
+let STN=STN_DEF,LBL=LBL_DEF;const lbl=k=>LBL[k]||k;  /* nombres de estatus de la técnica abierta (motores: Alarma/Precaución/Normal) */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const dayDiff=(a,b)=>Math.round((Date.parse(b)-Date.parse(a))/864e5);
+const fmtD=f=>f?f.slice(8,10)+"/"+f.slice(5,7)+"/"+f.slice(0,4):"—";
+const MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>el.hidden=true,4200)}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+
+/* ---------- state ---------- */
+const S={eq:new Map(),cargas:[],store:{},db:null,dl:null,assets:null,mode:"loading",mod:"home",tab:"resumen",sort:{k:"rank",dir:-1},diag:"P1",
+  f:{area:[],sec:[],st:new Set(["P1","P2","DL"]),act:true,d1:"",d2:"",q:""}};
+
+/* ---------- derived ---------- */
+function derive(e){
+  const h=(e.hist||[]).slice().sort((a,b)=>a.f<b.f?-1:1);
+  let desde=null,exacto=false;
+  if(e.estatus!=="DL"&&h.length){let i=h.length-1;desde=h[i].f;while(i>=0&&h[i].e!=="DL"){desde=h[i].f;i--}exacto=i>=0}
+  let trend=0,prev=null;
+  if(h.length>1){prev=h[h.length-2];trend=Math.sign((RANK[h[h.length-1].e]??0)-(RANK[prev.e]??0))}
+  const bad=(e.comp||[]).filter(c=>c.s);
+  const sint=bad[0]?.s||"";
+  return Object.assign({},e,{h,desde,exacto,dias:desde?dayDiff(desde,today()):null,trend,prev,bad,sint,ntomas:h.length,
+    rank:RANK[e.estatus]??0,sinToma:dayDiff(e.fecha,today())});
+}
+let _all=null,_allKey=null;
+function all(){if(_allKey!==S.eq){_all=[...S.eq.values()].map(derive);_allKey=S.eq}return _all}
+function filtered(o={}){
+  const f=S.f,q=f.q.toLowerCase();
+  return all().filter(e=>{
+    if(!o.ignoreArea&&f.area.length&&!f.area.includes(e.area))return false;
+    if(!o.ignoreArea&&f.sec.length&&!f.sec.includes(e.seccion))return false;
+    if(!o.ignoreStatus&&!f.st.has(e.estatus))return false;
+    if(f.act&&!e.activo)return false;
+    if(!o.ignoreDate){if(f.d1&&e.fecha<f.d1)return false;if(f.d2&&e.fecha>f.d2)return false}
+    if(q){const hay=(e.equipo+" "+e.seccion+" "+e.area+" "+(e.comp||[]).map(c=>c.c+" "+c.s+" "+c.r+" "+c.k).join(" ")).toLowerCase();if(!hay.includes(q))return false}
+    return true});
+}
+function cargaById(id){return S.cargas.find(c=>c.id===id)}
+
+/* ---------- render ---------- */
+let rT=0;function renderAll(){cancelAnimationFrame(rT);rT=requestAnimationFrame(_render)}
+function _render(){
+  renderHeader();
+  const home=S.mod==="home";document.body.classList.toggle("homemode",home);$("#vibBar").hidden=home;$("#crumbs").hidden=home;$("#btnUpload").hidden=home;$("#btnExport").hidden=home||typeof XLSX==="undefined";
+  const M=home?null:modInfo(S.mod),vacio=!home&&!S.eq.size&&S.mode!=="loading";
+  if(vacio){$("#vibBar").hidden=true;$("#btnExport").hidden=true}
+  $$("[data-view]").forEach(v=>v.hidden=home?v.id!=="v-home":vacio?v.id!=="v-empty":v.id!=="v-"+S.tab);
+  if(home)return renderHome();
+  $("#crumbG").textContent=M.grp;$("#crumbT").textContent=M.name;{const l=$("#crumbL");l.hidden=!MODLOGOS[M.id];if(MODLOGOS[M.id])l.src=MODLOGOS[M.id]}
+  if(vacio){$("#emptyBox").innerHTML=`<h2>Aún no hay datos de ${esc(M.name.toLowerCase())}</h2><p class="sub" style="margin:0">${esc(M.desc)}.</p>
+    <p style="margin:0;max-width:70ch">Este tablero funciona igual que el de vibraciones: estatus P1/P2/DL, ver por áreas, diagnóstico y recomendación, desde cuándo está la falla, rutas pendientes, historial y formato original. Se llena en cuanto cargues el reporte de esta técnica exportado de Orios.</p>
+    <button type="button" class="primary" id="emptyUp">Actualizar · cargar reporte</button>
+    <div class="hint">El reporte debe traer las columnas Planta, Área, Línea, Sección, Fecha monitoreo, Equipo, Estatus, Componente, Síntoma y Recomendación, como el de vibraciones.</div>`;
+    $("#emptyUp").onclick=openModal;return}
+  fillFilterOptions();
+  ({resumen:renderResumen,areas:renderAreas,diag:renderDiag,equipos:renderEquipos,lista:renderLista,rutas:renderRutas,cargas:renderCargas})[S.tab]();
+}
+function renderHeader(){
+  if(S.mod==="home"){const conD=MODS.filter(m=>S.store[m.id]&&S.store[m.id].eq.size).length;
+    $("#corte").innerHTML=S.mode==="loading"?"Cargando historial…":`Planta Guadalajara · <b>${conD}</b> de ${MODS.length} técnicas con datos`;return}
+  const n=S.eq.size;
+  if(!n){$("#corte").innerHTML=S.mode==="loading"?"Cargando historial…":`Sin datos de ${esc(modInfo(S.mod).name.toLowerCase())} todavía. Usa <b>Actualizar</b> para cargar el reporte de Orios.`;return}
+  const corte=[...S.eq.values()].map(e=>e.fecha).sort().pop();
+  const last=S.cargas[0];
+  $("#corte").innerHTML=`Último monitoreo: <b>${fmtD(corte)}</b> · <b>${n}</b> equipos`+(last?` · actualizado ${new Date(last.ts).toLocaleDateString("es-MX",{day:"2-digit",month:"short",year:"numeric"})}`:"");
+}
+function fillFilterOptions(){
+  const A=all();const areas=[...new Set(A.map(e=>e.area))].sort();
+  const secs=[...new Set(A.filter(e=>!S.f.area.length||S.f.area.includes(e.area)).map(e=>e.seccion))].sort();
+  S.f.area=S.f.area.filter(a=>areas.includes(a));S.f.sec=S.f.sec.filter(x=>secs.includes(x));
+  msFill("msArea",areas,S.f.area,"Todas las áreas","áreas");msFill("msSec",secs,S.f.sec,"Todas las secciones","secciones");
+}
+/* filtro de opción múltiple: botón + lista de casillas; vacío = todas */
+function msFill(id,opts,sel,todas,plural){const box=$("#"+id),b=box.querySelector(".msb span"),pn=box.querySelector(".msp");
+  b.textContent=!sel.length?todas:sel.length===1?sel[0]:`${sel.length} ${plural}`;box.querySelector(".msb").classList.toggle("on",!!sel.length);
+  const sig=JSON.stringify(opts);
+  if(pn.dataset.sig!==sig){pn.dataset.sig=sig;pn.innerHTML=`<label class="msall"><input type="checkbox" data-all> ${esc(todas)}</label>`+opts.map(o=>`<label><input type="checkbox" value="${esc(o)}"> ${esc(o)}</label>`).join("")}
+  pn.querySelector("[data-all]").checked=!sel.length;pn.querySelectorAll("input[value]").forEach(i=>i.checked=sel.includes(i.value))}
+function msInit(id,set){const box=$("#"+id),btn=box.querySelector(".msb"),pn=box.querySelector(".msp");
+  btn.onclick=ev=>{ev.stopPropagation();const open=pn.hidden;$$(".ms .msp").forEach(x=>x.hidden=true);$$(".ms .msb").forEach(x=>x.setAttribute("aria-expanded","false"));pn.hidden=!open;btn.setAttribute("aria-expanded",open)};
+  pn.onclick=ev=>ev.stopPropagation();
+  pn.onchange=ev=>{const t=ev.target;if(t.dataset.all!==undefined)set([]);else set([...pn.querySelectorAll("input[value]:checked")].map(i=>i.value));renderAll()}}
+document.addEventListener("click",()=>{$$(".ms .msp").forEach(x=>x.hidden=true);$$(".ms .msb").forEach(x=>x.setAttribute("aria-expanded","false"))});
+document.addEventListener("keydown",ev=>{if(ev.key==="Escape")$$(".ms .msp").forEach(x=>x.hidden=true)});
+const emptyState=m=>`<div class="empty">${m}</div>`;
+function kpi(cls,v,l,s,act,go){return `<button class="kpi ${cls}" type="button" ${act?`data-act="${act}"`:""}><span class="lbl">${l}</span><span class="v">${v}</span><span class="s">${s}</span>${go?`<span class="go">${go} →</span>`:""}</button>`}
+function counts(F){const c={P1:0,P2:0,DL:0};F.forEach(e=>c[e.estatus]=(c[e.estatus]||0)+1);return c}
+function openDiag(st,area){S.diag=st;if(area!==undefined){S.f.area=area?[area]:[];S.f.sec=[]}if(!S.f.st.has(st)){S.f.st.add(st);syncChips()}setTab("diag")}
+
+function renderResumen(){
+  const F=filtered({ignoreStatus:true});const c=counts(F);
+  const viejos=F.filter(e=>e.sinToma>venceD()).length, worse=F.filter(e=>e.trend>0), tot=F.length||1;
+  $("#kpis").innerHTML=!S.eq.size?emptyState("Cuando cargues el primer archivo aquí verás cuántos equipos están en P1, P2 y DL."):
+    kpi("P1",c.P1,STN.P1,"Atención inmediata · "+Math.round(c.P1/tot*100)+"%","P1","Ver diagnóstico")+
+    kpi("P2",c.P2,STN.P2,"Programar corrección · "+Math.round(c.P2/tot*100)+"%","P2","Ver diagnóstico")+
+    kpi("DL",c.DL,STN.DL,"Sin acción · "+Math.round(c.DL/tot*100)+"%","DL","Ver lista")+
+    kpi("W",worse.length,"Empeoraron","Subieron de nivel en su última muestra","worse","Ver equipos")+
+    kpi("",viejos,venceD()>90?"Prueba vencida (+"+venceTxt()+")":"Sin monitoreo +90 días","Revisar en rutas","rutas","Ver rutas");
+  $$("#kpis [data-act]").forEach(b=>b.onclick=()=>{const a=b.dataset.act;
+    if(a==="rutas")return setTab("rutas");if(a==="worse")return setTab("equipos","worse");openDiag(a)});
+  donut(F,c);
+  const areas=[...new Set(all().map(e=>e.area))].sort();
+  $("#areaChips").innerHTML=`<span class="lbl">Ver por áreas</span><button type="button" data-a="" aria-pressed="${!S.f.area.length}">Todas</button>`+areas.map(a=>`<button type="button" data-a="${esc(a)}" aria-pressed="${S.f.area.includes(a)}">${esc(a)}</button>`).join("");
+  $$("#areaChips [data-a]").forEach(b=>b.onclick=()=>{const a=b.dataset.a;S.f.area=!a?[]:S.f.area.includes(a)?S.f.area.filter(x=>x!==a):[...S.f.area,a];S.f.sec=[];renderAll()});   /* las áreas se pueden combinar */
+  const bad=F.filter(e=>e.estatus!=="DL").sort((a,b)=>b.rank-a.rank||(b.dias??0)-(a.dias??0)).slice(0,8);
+  $("#attn").innerHTML=bad.length?bad.map(e=>aItem(e)).join(""):emptyState("Ningún equipo en P1 o P2 con estos filtros.");
+  $("#worse").innerHTML=worse.length?worse.sort((a,b)=>b.rank-a.rank||(b.fecha>a.fecha?1:-1)).slice(0,8).map(e=>aItem(e,true)).join(""):emptyState("Ningún equipo empeoró respecto a su muestra anterior.");
+  $$("#attn [data-id],#worse [data-id]").forEach(b=>b.onclick=()=>openDrawer(b.dataset.id));
+  charts(F);heat(F);
+}
+function aItem(e,w){
+  const right=w?`<span class="trend up mono">${e.prev?lbl(e.prev.e):""} → ${lbl(e.estatus)}</span>`:`<span class="days" style="color:var(--${e.estatus.toLowerCase()})">${e.dias??"—"} d</span>`;
+  return `<button class="aitem" type="button" data-id="${e.id}"><span class="pill ${e.estatus}">${lbl(e.estatus)}</span><span style="min-width:0"><span class="eqn">${esc(e.equipo)}</span><br><span class="sub">${esc(e.seccion)} · ${esc(e.sint||"Ver componentes")}</span></span>${right}</button>`;
+}
+
+/* charts */
+const CH={};
+function mk(id,cfg){if(CH[id]){CH[id].destroy();delete CH[id]}if(typeof Chart==="undefined")return;CH[id]=new Chart(document.getElementById(id),cfg)}
+function axes(stacked,horiz){const fg=css("--fg-2"),grid=css("--line");
+  const a={ticks:{color:fg,precision:0},grid:{color:grid},stacked:!!stacked,beginAtZero:true},b={ticks:{color:fg},grid:{display:false},stacked:!!stacked};
+  return horiz?{x:a,y:b}:{x:b,y:a}}
+function opts(o={}){return Object.assign({responsive:true,maintainAspectRatio:false,animation:false,
+  plugins:{legend:{labels:{color:css("--fg-2"),boxWidth:12}},tooltip:{mode:"index",intersect:false}}},o)}
+const pointer=(ev,el)=>{ev.native.target.style.cursor=el.length?"pointer":"default"};
+function donut(F,c){
+  const keys=["P1","P2","DL"].filter(k=>S.f.st.has(k));
+  mk("cDonut",{type:"doughnut",data:{labels:keys.map(k=>STN[k]),datasets:[{data:keys.map(k=>c[k]),backgroundColor:keys.map(k=>css("--"+k.toLowerCase())),borderColor:css("--panel"),borderWidth:2}]},
+    options:opts({cutout:"62%",plugins:{legend:{display:false},tooltip:{}},onHover:pointer,onClick:(ev,el)=>{if(el.length)openDiag(keys[el[0].index])}})});
+  const tot=keys.reduce((s,k)=>s+c[k],0)||1;
+  $("#dleg").innerHTML=keys.map(k=>`<button type="button" data-st="${k}"><span><span class="pill ${k}">${lbl(k)}</span> <span class="sub">${(STN[k].split("·")[1]||"").trim()}${STN[k].includes("·")?" · ":""}${Math.round(c[k]/tot*100)}%</span></span><span class="n" style="color:var(--${k.toLowerCase()})">${c[k]}</span></button>`).join("")+
+    `<div class="hint">${S.f.area.length?esc(S.f.area.join(", ")):"Todas las áreas"} · ${keys.reduce((s,k)=>s+c[k],0)} equipos</div>`;
+  $$("#dleg [data-st]").forEach(b=>b.onclick=()=>openDiag(b.dataset.st));
+}
+function charts(F){
+  const areas=[...new Set(F.map(e=>e.area))].sort();
+  const keys=["P1","P2","DL"].filter(k=>S.f.st.has(k));
+  mk("cArea",{type:"bar",data:{labels:areas,datasets:keys.map(k=>({label:lbl(k),data:areas.map(a=>F.filter(e=>e.area===a&&e.estatus===k).length),backgroundColor:css("--"+k.toLowerCase())}))},
+    options:opts({indexAxis:"y",scales:axes(true,true),onHover:pointer,plugins:{legend:{labels:{color:css("--fg-2"),boxWidth:12}},tooltip:{mode:"nearest",intersect:true}},
+      onClick:(ev,el)=>{if(el.length)openDiag(keys[el[0].datasetIndex],areas[el[0].index])}})});
+  const m={};F.filter(e=>e.estatus!=="DL").forEach(e=>e.bad.forEach(c=>{const k=c.s.split(":")[0].trim();m[k]=(m[k]||0)+1}));
+  const mm=Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  mk("cModo",{type:"bar",data:{labels:mm.map(x=>x[0]),datasets:[{label:"Síntomas",data:mm.map(x=>x[1]),backgroundColor:css("--accent"),borderRadius:3}]},
+    options:opts({indexAxis:"y",plugins:{legend:{display:false}},scales:axes(false,true),onHover:pointer,
+      onClick:(ev,el)=>{if(el.length){S.f.q=mm[el[0].index][0];$("#fQ").value=S.f.q;S.f.st=new Set(["P1","P2"]);syncChips();setTab("diag")}}})});
+  const mon={};F.forEach(e=>e.h.forEach(h=>{const k=h.f.slice(0,7);mon[k]=mon[k]||{P1:0,P2:0,DL:0};mon[k][h.e]=(mon[k][h.e]||0)+1}));
+  const ks=Object.keys(mon).sort().slice(-18);
+  mk("cMes",{type:"bar",data:{labels:ks.map(k=>MES[+k.slice(5,7)-1]+" "+k.slice(2,4)),datasets:["P1","P2","DL"].map(k=>({label:lbl(k),data:ks.map(m=>mon[m][k]),backgroundColor:css("--"+k.toLowerCase())}))},options:opts({scales:axes(true)})});
+  const B=[["< 30 d",0,30],["30–90 d",30,90],["90–180 d",90,180],["180 d–1 año",180,365],["> 1 año",365,1e9]];
+  const fb=F.filter(e=>e.estatus!=="DL"&&e.dias!=null);
+  mk("cAge",{type:"bar",data:{labels:B.map(b=>b[0]),datasets:["P1","P2"].map(k=>({label:lbl(k),data:B.map(b=>fb.filter(e=>e.estatus===k&&e.dias>=b[1]&&e.dias<b[2]).length),backgroundColor:css("--"+k.toLowerCase())}))},options:opts({scales:axes(true)})});
+}
+function heat(F){
+  const m={},cols={};
+  F.filter(e=>e.estatus!=="DL").forEach(e=>e.bad.forEach(c=>{const k=c.s.split(":")[0].trim();cols[k]=(cols[k]||0)+1;m[e.seccion]=m[e.seccion]||{};m[e.seccion][k]=(m[e.seccion][k]||0)+1}));
+  const C=Object.entries(cols).sort((a,b)=>b[1]-a[1]).slice(0,6).map(x=>x[0]);
+  const tot=r=>Object.values(m[r]).reduce((x,y)=>x+y,0);
+  const R=Object.keys(m).sort((a,b)=>tot(b)-tot(a)).slice(0,12);
+  if(!R.length){$("#heat").innerHTML=emptyState("Sin síntomas activos con estos filtros.");return}
+  const mx=Math.max(...R.flatMap(r=>C.map(c=>m[r][c]||0)));
+  let h=`<div class="hm" style="grid-template-columns:minmax(150px,1.6fr) repeat(${C.length},minmax(52px,1fr))"><div></div>`+C.map(c=>`<div class="hh">${esc(c)}</div>`).join("");
+  R.forEach(r=>{h+=`<div class="hl" title="${esc(r)}"><a href="#" data-sec="${esc(r)}" style="color:inherit">${esc(r)}</a></div>`+C.map(c=>{const v=m[r][c]||0;const a=v?0.15+0.85*v/mx:0;
+    return `<div style="background:${v?`color-mix(in srgb,var(--p2) ${Math.round(a*100)}%,var(--panel))`:"var(--panel-2)"};color:${a>.6?"#fff":"var(--fg)"}">${v||""}</div>`}).join("")});
+  $("#heat").innerHTML=h+"</div>";
+  $$("#heat [data-sec]").forEach(a=>a.onclick=ev=>{ev.preventDefault();S.f.sec=[a.dataset.sec];renderAll()});
+}
+
+/* ver por áreas */
+function renderAreas(){
+  const F=filtered({ignoreStatus:true,ignoreArea:true});
+  const areas=[...new Set(F.map(e=>e.area))].sort();
+  $("#areaGrid").innerHTML=areas.map((a,i)=>{const c=counts(F.filter(e=>e.area===a));const t=c.P1+c.P2+c.DL;
+    return `<div class="card acard" style="${S.f.area.includes(a)?"border-color:var(--accent)":""}"><div style="position:relative;height:96px"><canvas id="ad${i}"></canvas></div>
+      <div style="display:grid;gap:4px;min-width:0"><h3>${esc(a)}</h3><span class="hint">${t} equipos</span>
+      <div class="nums">${["P1","P2","DL"].map(k=>`<button type="button" data-a="${esc(a)}" data-st="${k}"><span class="pill ${k}">${lbl(k)}</span>&nbsp;<b class="mono">${c[k]}</b>&nbsp;<span class="sub">ver</span></button>`).join("")}</div>
+      <button type="button" class="link" data-only="${esc(a)}" style="justify-self:start;font-size:13px">Filtrar todo el tablero por esta área</button></div></div>`}).join("")||emptyState("Sin datos.");
+  areas.forEach((a,i)=>{const c=counts(F.filter(e=>e.area===a));
+    mk("ad"+i,{type:"doughnut",data:{labels:["P1","P2","DL"],datasets:[{data:[c.P1,c.P2,c.DL],backgroundColor:["P1","P2","DL"].map(k=>css("--"+k.toLowerCase())),borderWidth:1,borderColor:css("--panel")}]},
+      options:opts({cutout:"58%",plugins:{legend:{display:false}},onHover:pointer,onClick:(ev,el)=>{if(el.length)openDiag(["P1","P2","DL"][el[0].index],a)}})})});
+  $$("#areaGrid [data-st]").forEach(b=>b.onclick=()=>openDiag(b.dataset.st,b.dataset.a));
+  $$("#areaGrid [data-only]").forEach(b=>b.onclick=()=>{S.f.area=[b.dataset.only];S.f.sec=[];setTab("resumen")});
+  const G=S.f.area.length?F.filter(e=>S.f.area.includes(e.area)):F;
+  const secs=[...new Set(G.map(e=>e.seccion))].sort((x,y)=>G.filter(e=>e.seccion===y&&e.estatus!=="DL").length-G.filter(e=>e.seccion===x&&e.estatus!=="DL").length);
+  $("#secTitle").textContent="Secciones · "+(S.f.area.join(", ")||"todas las áreas");
+  mk("cSec",{type:"bar",data:{labels:secs,datasets:["P1","P2","DL"].map(k=>({label:lbl(k),data:secs.map(s=>G.filter(e=>e.seccion===s&&e.estatus===k).length),backgroundColor:css("--"+k.toLowerCase())}))},
+    options:opts({indexAxis:"y",scales:axes(true,true),onHover:pointer,plugins:{legend:{labels:{color:css("--fg-2"),boxWidth:12}},tooltip:{mode:"nearest",intersect:true}},
+      onClick:(ev,el)=>{if(el.length){S.f.sec=[secs[el[0].index]];openDiag(["P1","P2","DL"][el[0].datasetIndex])}}})});
+}
+
+/* diagnóstico por estatus */
+function renderDiag(){
+  const st=S.diag;$$("#diagSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.d===st));
+  const F=filtered({ignoreStatus:true}).filter(e=>e.estatus===st).sort((a,b)=>(b.dias??-1)-(a.dias??-1)||a.equipo.localeCompare(b.equipo));
+  $("#diagTitle").innerHTML=`Diagnóstico · <span style="color:var(--${st.toLowerCase()})">${STN[st]}</span>`;
+  $("#diagSub").textContent=`${F.length} equipos`+(S.f.area.length?` en ${S.f.area.join(", ")}`:"")+(S.f.sec.length?` · ${S.f.sec.join(", ")}`:"")+(S.f.q?` · búsqueda “${S.f.q}”`:"")+(st==="DL"?". Equipos dentro de límites: se muestran sus observaciones si las hay.":". Ordenados por días en falla.");
+  const shown=F.slice(0,st==="DL"?120:400);
+  $("#diagList").innerHTML=shown.length?shown.map(e=>{
+    const items=(st==="DL"?(e.comp||[]).filter(c=>c.s||c.k||c.r):e.bad);
+    return `<article class="dcard ${st}"><div class="top"><div><span class="pill ${st}">${lbl(st)}</span> <b class="eqn" style="font-size:16px">${esc(e.equipo)}</b>${e.activo?"":` <span class="pill NA">Inactivo</span>`}<div class="sub">${esc(e.seccion)} · ${esc(e.area)} · última muestra ${fmtD(e.fecha)}</div></div>
+      <div style="text-align:right">${e.desde?`<div class="days" style="color:var(--${st.toLowerCase()})">${e.dias} días en falla</div><div class="sub">desde ${e.exacto?"":"al menos "}${fmtD(e.desde)}</div>`:""}${trendTxt(e)}</div></div>
+      ${items.length?items.map(c=>`<div class="finding"><div><div class="lbl">Componente</div><div class="k">${esc(c.c)}</div></div><div style="display:grid;gap:3px">
+        ${c.s?`<div><span class="lbl">Diagnóstico</span><div>${esc(c.s)}</div></div>`:""}
+        ${c.r&&!/^ver comentarios/i.test(c.r)?`<div class="rec"><b>Recomendación:</b> ${esc(c.r)}</div>`:""}
+        ${c.k?`<div class="com">Analista: ${esc(c.k.replace(/^\[[^\]]*\]\s*-\s*/,""))}</div>`:""}</div></div>`).join(""):`<div class="sub">Sin hallazgos en sus componentes.</div>`}
+      <div class="acts"><button type="button" data-id="${e.id}" data-a="ficha">Historial completo</button><button type="button" data-id="${e.id}" data-a="orig">Ver formato original</button></div></article>`}).join("")+(F.length>shown.length?emptyState(`Mostrando ${shown.length} de ${F.length}. Usa los filtros para acotar.`):"")
+    :emptyState("Ningún equipo con este estatus y filtros.");
+  $$("#diagList [data-a=ficha]").forEach(b=>b.onclick=()=>openDrawer(b.dataset.id));
+  $$("#diagList [data-a=orig]").forEach(b=>b.onclick=()=>openOrig(b.dataset.id));
+}
+$$("#diagSeg button").forEach(b=>b.onclick=()=>{S.diag=b.dataset.d;if(!S.f.st.has(S.diag)){S.f.st.add(S.diag);syncChips()}renderAll()});
+
+/* equipos */
+let eqMode="";
+/* lista: cada equipo con su sección, diagnóstico y recomendación (por componente) */
+function renderLista(){
+  const F=filtered().sort((a,b)=>b.rank-a.rank||String(a.seccion).localeCompare(b.seccion)||String(a.equipo).localeCompare(b.equipo));
+  $("#lsTitle").innerHTML=`Lista de diagnóstico <span class="sub mono">(${F.length})</span>`;
+  const diag=e=>{const c=(e.comp||[]).filter(c=>c.s);return c.length?`<div class="dl">${c.map(c=>`<div><b>${esc(c.c)}:</b> ${esc(c.s)}</div>`).join("")}</div>`:`<span class="sub">Sin síntomas</span>`};
+  const reco=e=>{const c=(e.comp||[]).filter(c=>c.r);return c.length?`<div class="dl">${c.map(c=>`<div>${(e.comp||[]).length>1?`<b>${esc(c.c)}:</b> `:""}${esc(c.r)}</div>`).join("")}</div>`:`<span class="sub">—</span>`};
+  $("#lsTbl tbody").innerHTML=F.length?F.map(e=>`<tr class="row" data-id="${e.id}" tabindex="0">
+    <td><span class="pill ${e.estatus}">${lbl(e.estatus)}</span>${e.activo?"":`<div class="sub">Inactivo</div>`}</td>
+    <td><span class="eqn">${esc(e.equipo)}</span><div class="sub">${esc(e.area)}</div></td>
+    <td>${esc(e.seccion)}</td><td>${diag(e)}</td><td>${reco(e)}</td>
+    <td class="num">${fmtD(e.fecha)}<div class="sub">${e.ntomas} muestra${e.ntomas===1?"":"s"}</div></td></tr>`).join(""):`<tr><td colspan="6">${emptyState("Ningún equipo coincide con estos filtros.")}</td></tr>`;
+  $$("#lsTbl tr.row").forEach(r=>{r.onclick=()=>openDrawer(r.dataset.id);r.onkeydown=ev=>{if(ev.key==="Enter")openDrawer(r.dataset.id)}});
+}
+function renderEquipos(){
+  let F=filtered();if(eqMode==="worse")F=F.filter(e=>e.trend>0);
+  const {k,dir}=S.sort;
+  const val=e=>k==="desde"?(e.desde||"9999"):k==="sint"?e.sint:k==="dias"?(e.dias??-1):k==="trend"?e.trend:e[k];
+  F.sort((a,b)=>{const x=val(a),y=val(b);return (x<y?-1:x>y?1:0)*dir||(b.dias??-1)-(a.dias??-1)});
+  $("#eqTitle").innerHTML=`${eqMode==="worse"?"Equipos que empeoraron":"Equipos"} <span class="sub mono">(${F.length})</span>`+(eqMode?` <button type="button" id="eqAll" style="font-size:13px;padding:3px 8px">Ver todos</button>`:"");
+  if($("#eqAll"))$("#eqAll").onclick=()=>{eqMode="";renderAll()};
+  const maxD=Math.max(365,...F.map(e=>e.dias||0));
+  $("#eqTbl tbody").innerHTML=F.length?F.map(e=>`<tr class="row" data-id="${e.id}" tabindex="0">
+    <td><span class="pill ${e.estatus}">${lbl(e.estatus)}</span>${e.activo?"":`<div class="sub">Inactivo</div>`}</td>
+    <td><span class="eqn">${esc(e.equipo)}</span><div class="sub">${e.bad.length} de ${(e.comp||[]).length} componentes con síntoma</div></td>
+    <td class="hide-sm">${esc(e.seccion)}<div class="sub">${esc(e.area)}</div></td>
+    <td class="num">${fmtD(e.fecha)}<div class="sub">hace ${e.sinToma} d</div></td>
+    <td class="num">${e.desde?(e.exacto?"":"≤ ")+fmtD(e.desde):"—"}</td>
+    <td class="num"><span class="days" style="color:var(--${e.estatus.toLowerCase()})">${e.dias??"—"}</span>${e.dias!=null?`<div class="agebar"><i style="width:${Math.min(100,e.dias/maxD*100)}%;background:var(--${e.estatus.toLowerCase()})"></i></div>`:""}</td>
+    <td style="min-width:200px">${esc(e.sint)||`<span class="sub">—</span>`}${e.bad.length>1?`<div class="sub">+${e.bad.length-1} más</div>`:""}</td>
+    <td class="num">${e.ntomas}</td><td>${trendTxt(e)}</td></tr>`).join(""):`<tr><td colspan="9">${emptyState("Ningún equipo coincide con estos filtros.")}</td></tr>`;
+  $$("#eqTbl tr.row").forEach(r=>{r.onclick=()=>openDrawer(r.dataset.id);r.onkeydown=ev=>{if(ev.key==="Enter")openDrawer(r.dataset.id)}});
+  $$("#eqTbl th[data-k]").forEach(th=>{th.textContent=th.textContent.replace(/ [▲▼]$/,"");if(th.dataset.k===k)th.textContent+=dir>0?" ▲":" ▼";
+    th.onclick=()=>{S.sort=S.sort.k===th.dataset.k?{k:th.dataset.k,dir:-S.sort.dir}:{k:th.dataset.k,dir:-1};renderAll()}});
+}
+function trendTxt(e){if(!e.prev)return `<span class="trend eq">1ª muestra</span>`;
+  if(e.trend>0)return `<span class="trend up">▲ ${lbl(e.prev.e)}→${lbl(e.estatus)}</span>`;
+  if(e.trend<0)return `<span class="trend down">▼ ${lbl(e.prev.e)}→${lbl(e.estatus)}</span>`;return `<span class="trend eq">= igual</span>`}
+
+/* ficha: historial completo */
+function srcName(src){const c=cargaById(src);return c?c.archivo:(src||"Archivo no registrado")}
+function openDrawer(id){
+  const e=derive(S.eq.get(id));if(!e)return;
+  const col=s=>`var(--${String(s||"na").toLowerCase()})`;
+  const H=e.h.slice().reverse();
+  $("#dp").innerHTML=`<div class="dhead"><div><span class="pill ${e.estatus}">${lbl(e.estatus)}</span> ${trendTxt(e)}<h2 id="dTitle" style="font-size:22px;margin-top:6px">${esc(e.equipo)}</h2><div class="sub">${esc(e.seccion)} · ${esc(e.linea)} · ${esc(e.area)}</div></div><button type="button" id="dClose">Cerrar</button></div>
+  <div class="meta">
+    <div><span class="lbl">Último monitoreo</span><span class="mono">${fmtD(e.fecha)}${e.hora&&e.hora!=="00:00"?" "+e.hora:""}</span></div>
+    <div><span class="lbl">Falla desde</span><span class="mono">${e.desde?(e.exacto?"":"al menos ")+fmtD(e.desde):"Sin falla"}</span></div>
+    <div><span class="lbl">Días en falla</span><span class="mono" style="color:${col(e.estatus)}">${e.dias??"—"}</span></div>
+    <div><span class="lbl">Número de muestras</span><span class="mono">${e.ntomas}</span></div>
+  </div>
+  ${e.desde&&!e.exacto?`<div class="banner">La primera muestra registrada ya venía en falla, así que la falla puede ser más antigua.</div>`:""}
+  <div><span class="lbl">Línea de tiempo del estatus · clic para ver la muestra</span><div class="timeline">${e.h.map((h,i)=>`<button type="button" class="tl" data-i="${e.h.length-1-i}"><span class="dot" style="background:${col(h.e)}"></span><b class="mono" style="color:${col(h.e)}">${lbl(h.e)}</b><span class="mono sub">${fmtD(h.f)}</span></button>`).join("")}</div></div>
+  <div class="acts"><button type="button" id="dOrig">Ver todo en formato original</button><button type="button" id="dXls">Descargar historial en Excel</button></div>
+  <div style="display:grid;gap:10px"><span class="lbl">Historial completo de estatus (${H.length} muestras, la más reciente arriba)</span>
+  ${H.map((h,i)=>{const comps=(h.comp||[]).slice().sort((a,b)=>(b.s?1:0)-(a.s?1:0));const nb=comps.filter(c=>c.s).length;
+    return `<details class="toma" id="tm${i}" ${i===0?"open":""}><summary><span class="pill ${h.e}">${lbl(h.e)}</span><b class="mono">${fmtD(h.f)}${h.h&&h.h!=="00:00"?" "+h.h:""}</b><span class="sub">${nb?nb+" componente"+(nb>1?"s":"")+" con síntoma":comps.length?"sin síntomas":"solo estatus registrado"}</span>${h.a===false?`<span class="pill NA">Inactivo</span>`:""}</summary>
+    <div class="tb">${comps.length&&comps.some(c=>c.c)?comps.map(c=>`<div class="comp ${c.s?"bad":""}"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(c.c||"—")}</b>${c.s?"":`<span class="sub">Sin síntoma</span>`}</div>
+      ${c.s?`<div><span class="lbl">Diagnóstico</span> ${esc(c.s)}</div>`:""}${c.r&&!/^ver comentarios/i.test(c.r)?`<div class="rec"><b>Recomendación:</b> ${esc(c.r)}</div>`:""}${c.k?`<div class="com">Analista: ${esc(c.k.replace(/^\[[^\]]*\]\s*-\s*/,""))}</div>`:""}</div>`).join(""):`<div class="sub">Esta muestra solo trae el estatus del equipo.</div>`}
+      <div class="sub">Fuente: ${esc(srcName(h.src))} · <button type="button" class="link" data-ot="${esc(h.f)}">ver en formato original</button></div></div></details>`}).join("")}</div>`;
+  $("#drawer").hidden=false;$("#dClose").onclick=closeDrawer;$("#dClose").focus();
+  $$("#dp .tl").forEach(b=>b.onclick=()=>{const d=$("#tm"+b.dataset.i);d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"})});
+  {const t=$("#dp .timeline");if(t)t.scrollLeft=t.scrollWidth}  /* abre en la toma más reciente */
+  $$("#dp [data-ot]").forEach(b=>b.onclick=()=>openOrig(id,b.dataset.ot));
+  $("#dOrig").onclick=()=>openOrig(id);
+  $("#dXls").onclick=()=>xlsxSave(`Historial_${e.equipo.replace(/[^\w-]+/g,"_").slice(0,40)}.xlsx`,[[origRows(e),"Historial"]]);
+}
+function closeDrawer(){$("#drawer").hidden=true}
+$("#drawer").addEventListener("click",ev=>{if(ev.target.id==="drawer")closeDrawer()});
+document.addEventListener("keydown",ev=>{if(ev.key!=="Escape")return;if(!$("#origDlg").hidden)return $("#origDlg").hidden=true;closeDrawer();if(!busy)$("#modal").hidden=true});
+
+/* formato original */
+const OCOLS=["Planta","Area","Linea","Seccion","Fecha monitoreo","Equipo","Estatus","EstaActivo","Componente/Union","Sintoma","Recomendacion","Comentarios del Analista"];
+function origRows(e,fecha){
+  const out=[];
+  (e.hist||[]).slice().sort((a,b)=>a.f<b.f?1:-1).filter(h=>!fecha||h.f===fecha).forEach(h=>{
+    const comps=(h.comp&&h.comp.length)?h.comp:[{c:"",s:"",r:"",k:""}];
+    comps.forEach(c=>out.push({"Planta":e.planta||"Guadalajara","Area":e.area,"Linea":e.linea,"Seccion":e.seccion,"Fecha monitoreo":fmtD(h.f)+" "+(h.h||"00:00"),"Equipo":e.equipo,
+      "Estatus":h.e,"EstaActivo":h.a===true?"Si":h.a===false?"No":"","Componente/Union":c.c,"Sintoma":c.s,"Recomendacion":c.r,"Comentarios del Analista":c.k,"Archivo de origen":srcName(h.src)}))});
+  return out;
+}
+function openOrig(id,fecha){
+  const e=S.eq.get(id);if(!e)return;
+  const rows=origRows(e,fecha);
+  const srcs=[...new Set((e.hist||[]).filter(h=>!fecha||h.f===fecha).map(h=>h.src))].filter(Boolean);
+  $("#oTitle").textContent=e.equipo;
+  $("#oSub").textContent=(fecha?"Muestra del "+fmtD(fecha):"Todas las muestras")+(modInfo(S.mod).parser?` · en columnas tipo Orios (${lbl("P1")}=P1, ${lbl("P2")}=P2, ${lbl("DL")}=DL); el detalle completo está en la hoja del equipo en el Excel`:" · columnas tal como vienen en el archivo de Orios");
+  $("#oTbl").innerHTML=`<thead><tr>${[...OCOLS,"Archivo de origen"].map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${[...OCOLS,"Archivo de origen"].map(c=>`<td class="${["Sintoma","Recomendacion","Comentarios del Analista"].includes(c)?"w":""}">${esc(r[c])}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  $("#oActs").innerHTML=`<button type="button" id="oXls">Descargar estas filas en Excel</button>`+srcs.map(s=>{const c=cargaById(s);return c&&(c.asset||c.local)?`<button type="button" data-src="${esc(s)}">Descargar archivo original: ${esc(c.archivo)}</button>`:""}).join("")+(fecha?`<button type="button" id="oAll">Ver todas las muestras</button>`:"");
+  $("#oXls").onclick=()=>xlsxSave(`Original_${e.equipo.replace(/[^\w-]+/g,"_").slice(0,40)}${fecha?"_"+fecha:""}.xlsx`,[[rows,"Formato original"]]);
+  $$("#oActs [data-src]").forEach(b=>b.onclick=()=>downloadOriginal(b.dataset.src));
+  if($("#oAll"))$("#oAll").onclick=()=>openOrig(id);
+  $("#origDlg").hidden=false;$("#oClose").focus();
+}
+$("#oClose").onclick=()=>$("#origDlg").hidden=true;
+$("#origDlg").addEventListener("click",ev=>{if(ev.target.id==="origDlg")$("#origDlg").hidden=true});
+
+/* rutas */
+function renderRutas(){
+  const inp=$("#rMes");
+  if(!inp.value){inp.value=([...S.eq.values()].map(e=>e.fecha).sort().pop()||today()).slice(0,7)}
+  const mes=inp.value;
+  const F=filtered({ignoreDate:true,ignoreStatus:true});
+  const hechos=F.filter(e=>e.h.some(h=>h.f.slice(0,7)===mes));
+  const pend=F.filter(e=>!hechos.includes(e));
+  $("#rInfo").textContent=`${hechos.length} de ${F.length} equipos ya tienen muestra este mes`;
+  const pct=F.length?Math.round(hechos.length/F.length*100):0;
+  $("#rKpis").innerHTML=kpi("DL",pct+"%","Avance de rutas",`${hechos.length} equipos monitoreados`)+kpi("",pend.length,"Pendientes",`Sin muestra en ${MES[+mes.slice(5)-1]} ${mes.slice(0,4)}`)+
+    kpi("P2",pend.filter(e=>e.estatus!=="DL").length,"Pendientes con falla","Estaban en P1/P2")+kpi("",pend.filter(e=>e.sinToma>venceD()).length,"Más de "+venceTxt(),"Desde su última prueba");
+  const g={};pend.forEach(e=>(g[e.seccion]=g[e.seccion]||[]).push(e));
+  const secs=Object.keys(g).sort((a,b)=>g[b].length-g[a].length);
+  mk("cRuta",{type:"bar",data:{labels:secs,datasets:[{label:"Pendientes",data:secs.map(s=>g[s].length),backgroundColor:css("--accent"),borderRadius:3}]},options:opts({indexAxis:"y",plugins:{legend:{display:false}},scales:axes(false,true)})});
+  $("#rList").innerHTML=secs.length?secs.map(s=>`<div class="card"><h3 style="display:flex;justify-content:space-between;gap:8px"><span>${esc(s)}</span><span class="mono sub">${g[s].length}</span></h3>
+    ${g[s].sort((a,b)=>b.rank-a.rank||b.sinToma-a.sinToma).map(e=>`<button class="aitem" type="button" data-id="${e.id}"><span class="pill ${e.estatus}">${lbl(e.estatus)}</span><span class="eqn" style="min-width:0">${esc(e.equipo)}</span><span class="mono sub">${fmtD(e.fecha)} · ${e.sinToma} d</span></button>`).join("")}</div>`).join("")
+    :`<div class="card">${emptyState("Todos los equipos de estos filtros ya tienen muestra en el mes.")}</div>`;
+  $$("#rList [data-id]").forEach(b=>b.onclick=()=>openDrawer(b.dataset.id));
+}
+$("#rMes").addEventListener("change",renderAll);
+
+function renderCargas(){
+  $("#cgBody").innerHTML=S.cargas.length?S.cargas.map(c=>`<tr><td class="mono">${new Date(c.ts).toLocaleString("es-MX",{dateStyle:"medium",timeStyle:"short"})}</td><td>${esc(c.archivo)}</td><td class="mono">${fmtD(c.corte)}</td><td class="num">${c.equipos??"—"}</td><td class="num">${c.duplicados??"—"}</td><td class="num">${c.nuevas??"—"}</td>
+    <td>${(c.empeoraron||[]).length?c.empeoraron.slice(0,6).map(w=>`<div class="sub">${esc(w.equipo)} <span class="trend up">${lbl(w.de)}→${lbl(w.a)}</span></div>`).join("")+(c.empeoraron.length>6?`<div class="sub">y ${c.empeoraron.length-6} más</div>`:""):`<span class="sub">—</span>`}</td>
+    <td>${c.asset||c.local?`<button type="button" data-src="${esc(c.id)}" style="font-size:13px;padding:4px 8px">Descargar</button>`:`<span class="sub">No disponible</span>`}</td></tr>`).join("")
+    :`<tr><td colspan="8">${emptyState("Aún no hay actualizaciones registradas.")}</td></tr>`;
+  $$("#cgBody [data-src]").forEach(b=>b.onclick=()=>downloadOriginal(b.dataset.src));
+}
+
+/* módulos de mantenimiento predictivo: cada uno es el mismo tablero con sus propios datos */
+const MODS=[
+  {id:"vib",grp:"Mecánico",name:"Vibraciones",desc:"Análisis de vibraciones en equipos rotativos"},
+  {id:"tri",grp:"Mecánico",name:"Tribología",desc:"Análisis de aceite y lubricantes"},
+  {id:"pnd",grp:"Mecánico",name:"Pruebas no destructivas",desc:"Ultrasonido, líquidos penetrantes, partículas magnéticas, espesores"},
+  {id:"mot",grp:"Eléctrico",name:"Motores",desc:"Pruebas de aislamiento (megger / PdMA) de motores",parser:"pruebas",
+    rx:/pruebasmotores.*\.(xlsx|xlsm|xls)$/i,archivo:"GDL - Pruebas Motores.xlsm",
+    labels:{P1:"Alarma",P2:"Precaución",DL:"Normal"},
+    stn:{P1:"Alarma · aislamiento < 75 MΩ",P2:"Precaución · aislamiento < 100 MΩ",DL:"Normal"}},
+  {id:"int",grp:"Eléctrico",name:"Interruptores",desc:"Condición física, operación, pruebas eléctricas y relevador de protección",parser:"bloques",
+    rx:/pruebasinterruptores.*\.(xlsx|xlsm|xls)$/i,archivo:"GDL - Pruebas Interruptores.xlsm",vence:1095,
+    labels:{P1:"Fuera de parámetros",P2:"Monitorear",DL:"Buen estado"},
+    stn:{P1:"Fuera de parámetros · requiere acción",P2:"Monitorear · seguimiento",DL:"Buen estado"}},
+  {id:"tra",grp:"Eléctrico",name:"Transformadores",desc:"Aceite (fisicoquímico y cromatografía) y pruebas eléctricas",parser:"bloques",
+    rx:/pruebastransformadores.*\.(xlsx|xlsm|xls)$/i,archivo:"GDL - Pruebas Transformadores.xlsm",vence:365,
+    labels:{P1:"Fuera de tolerancia",P2:"Monitorear",DL:"Buen estado"},
+    stn:{P1:"Fuera de tolerancia · requiere acción",P2:"Monitorear · seguimiento",DL:"Buen estado"}},
+  {id:"bat",grp:"Eléctrico",name:"Bancos de baterías",desc:"Capacidad e impedancia de bancos de baterías"},
+  {id:"rel",grp:"Eléctrico",name:"Relevadores",desc:"Pruebas de relevadores de protección"}];
+/* días sin prueba para considerarla vencida (en los libros de pruebas: interruptores 3 años, transformadores 1 año) */
+const venceD=()=>modInfo(S.mod).vence||90,venceTxt=()=>{const d=venceD();return d>=365?(d===365?"1 año":Math.round(d/365)+" años"):d+" días"};
+const modInfo=id=>MODS.find(m=>m.id===id)||{id,grp:"",name:id,desc:""};
+MODS.forEach(m=>S.store[m.id]={eq:new Map(),cargas:[]});
+function syncStore(){if(S.mod!=="home"){S.store[S.mod].eq=S.eq;S.store[S.mod].cargas=S.cargas}}
+function setLabels(){const M=S.mod==="home"?{}:modInfo(S.mod);LBL=M.labels||LBL_DEF;STN=M.stn||STN_DEF;
+  $$(".chip").forEach(c=>c.textContent=lbl(c.dataset.s));$$("#diagSeg button").forEach(b=>b.textContent=lbl(b.dataset.d))}
+function openMod(id){syncStore();S.mod=id;setLabels();
+  if(id!=="home"){S.eq=S.store[id].eq;S.cargas=S.store[id].cargas;S.tab="resumen";eqMode="";$$("#tabs [role=tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.t==="resumen"))}
+  closeDrawer();window.scrollTo({top:0});renderAll()}
+$("#btnHome").onclick=()=>openMod("home");
+/* logo de cada técnica (versión archivo; el Artifact no lleva marca) y un ícono genérico cuando no hay logo */
+const MODLOGOS=__MODLOGOS__;
+const TILE_ICON=`<svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h3l2.5-7 4 10 3-8 1.5 5H21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 4h10v6H7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+function renderHome(){
+  const grps=[...new Set(MODS.map(m=>m.grp))];
+  $("#homeBox").innerHTML=`<div class="ht"><h2>Mantenimiento predictivo</h2><span class="sub">Planta Guadalajara · elige una técnica para ver su tablero</span></div>`+
+  grps.map(g=>`<section class="grp"><div class="gh"><span class="lbl">${esc(g)}</span></div><div class="tiles">${MODS.filter(m=>m.grp===g).map(m=>{
+    const st=S.store[m.id],E=[...st.eq.values()].filter(e=>e.activo);const c={P1:0,P2:0,DL:0};E.forEach(e=>c[e.estatus]=(c[e.estatus]||0)+1);const tot=E.length;
+    const last=st.cargas[0];const corte=[...st.eq.values()].map(e=>e.fecha).sort().pop();
+    return `<button type="button" class="tile ${st.eq.size?"":"nodata"}" data-m="${m.id}"><span class="tlogo">${MODLOGOS[m.id]?`<img src="${MODLOGOS[m.id]}" alt="">`:TILE_ICON}</span><span class="tbody"><span class="tn">${esc(m.name)}</span><span class="td">${esc(m.desc)}</span>
+      <span class="tb2">${tot?["P1","P2","DL"].map(k=>`<i style="width:${c[k]/tot*100}%;background:var(--${k.toLowerCase()})"></i>`).join(""):""}</span>
+      ${st.eq.size?`<span class="tc">${["P1","P2","DL"].map(k=>`<span class="pill ${k}">${(m.labels||LBL_DEF)[k]} ${c[k]}</span>`).join("")}</span><span class="td">Último monitoreo ${fmtD(corte)}${last?` · actualizado ${new Date(last.ts).toLocaleDateString("es-MX",{day:"2-digit",month:"short"})}`:""}</span>`
+        :`<span class="td">Sin datos todavía · abre y presiona Actualizar para cargar su reporte</span>`}</span></button>`}).join("")}</div></section>`).join("");
+  $$("#homeBox [data-m]").forEach(b=>b.onclick=()=>openMod(b.dataset.m));
+}
+
+/* tabs & filters */
+function setTab(t,mode){if(S.mod==="home")return;
+  S.tab=t;eqMode=mode||"";$$("#tabs [role=tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));ls("orios_tab",t);closeDrawer();window.scrollTo({top:0});renderAll()}
+$$("#tabs [role=tab]").forEach(b=>b.onclick=()=>setTab(b.dataset.t));
+document.addEventListener("click",ev=>{const g=ev.target.closest("[data-goto]");if(g)setTab(g.dataset.goto)});
+function syncChips(){$$(".chip").forEach(c=>c.setAttribute("aria-pressed",S.f.st.has(c.dataset.s)))}
+$$(".chip").forEach(c=>c.onclick=()=>{const s=c.dataset.s;S.f.st.has(s)?S.f.st.delete(s):S.f.st.add(s);if(!S.f.st.size)S.f.st.add(s);syncChips();renderAll()});
+msInit("msArea",v=>{S.f.area=v});
+msInit("msSec",v=>{S.f.sec=v});
+$("#fAct").onchange=ev=>{S.f.act=ev.target.checked;renderAll()};
+$("#fD1").onchange=ev=>{S.f.d1=ev.target.value;renderAll()};
+$("#fD2").onchange=ev=>{S.f.d2=ev.target.value;renderAll()};
+let qT;$("#fQ").oninput=ev=>{clearTimeout(qT);qT=setTimeout(()=>{S.f.q=ev.target.value.trim();renderAll()},180)};
+$("#fClear").onclick=()=>{S.f={area:[],sec:[],st:new Set(["P1","P2","DL"]),act:true,d1:"",d2:"",q:""};$("#fQ").value="";$("#fD1").value="";$("#fD2").value="";$("#fAct").checked=true;syncChips();eqMode="";renderAll()};
+
+/* ---------- parsing ---------- */
+function decode(buf){
+  const u=new Uint8Array(buf);
+  if((u[0]===0xFF&&u[1]===0xFE)||(u.length>3&&u[1]===0&&u[3]===0))return new TextDecoder("utf-16le").decode(buf);
+  if(u[0]===0xFE&&u[1]===0xFF)return new TextDecoder("utf-16be").decode(buf);
+  try{return new TextDecoder("utf-8",{fatal:true}).decode(buf)}catch(e){return new TextDecoder("windows-1252").decode(buf)}
+}
+const REP=new Map();Object.entries(REPAIR).forEach(([k,v])=>{REP.set(k,v);REP.set(k.toUpperCase(),v.toUpperCase());REP.set(k.toLowerCase(),v.toLowerCase());REP.set(k[0].toUpperCase()+k.slice(1).toLowerCase(),v[0].toUpperCase()+v.slice(1).toLowerCase())});
+const WRD=new RegExp("[\\wÀ-ſ"+FFFD+"]*"+FFFD+"[\\wÀ-ſ"+FFFD+"]*","g");
+function fixText(s){
+  if(!s||s.indexOf(FFFD)<0)return s;
+  return s.replace(WRD,w=>{if(REP.has(w))return REP.get(w);const up=w===w.toUpperCase();
+    return w.split("ci"+FFFD+"n").join(up?"ción":"ción").split("CI"+FFFD+"N").join("CIÓN").split("si"+FFFD+"n").join("sión").split("SI"+FFFD+"N").join("SIÓN")});
+}
+function parseTSV(t){
+  const sep=(t.split(/\r?\n/,1)[0].split("\t").length>3)?"\t":(t.split(/\r?\n/,1)[0].split(";").length>3?";":",");
+  const rows=[];let row=[],f="",q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){if(ch==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=ch}
+    else if(ch==='"'&&f==="")q=true;
+    else if(ch===sep){row.push(f);f=""}
+    else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&t[i+1]==="\n")i++;row.push(f);f="";if(row.some(x=>x.trim()))rows.push(row);row=[]}
+    else f+=ch}
+  row.push(f);if(row.some(x=>x.trim()))rows.push(row);return rows;
+}
+const nk=s=>String(s??"").normalize("NFD").replace(/[^A-Za-z]/g,"").toLowerCase();
+const COLS={planta:"planta",area:"area",linea:"linea",seccion:"seccion",fechamonitoreo:"fecha",equipo:"equipo",estatus:"estatus",estaactivo:"activo",componenteunion:"comp",sintoma:"sint",recomendacion:"rec",comentariosdelanalista:"com"};
+function pDate(s){const m=String(s).match(/(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2})(?::\d{2})?\s*([ap])?)?/i)||String(s).match(/(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{1,2}):(\d{2}))?/);
+  if(!m)return null;
+  if(m[1].length===4)return {f:`${m[1]}-${m[2]}-${m[3]}`,h:`${String(+(m[4]||0)).padStart(2,"0")}:${m[5]||"00"}`};
+  let H=+(m[4]||0);if(m[6]){const p=m[6].toLowerCase();if(p==="p"&&H<12)H+=12;if(p==="a"&&H===12)H=0}
+  return {f:`${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`,h:`${String(H).padStart(2,"0")}:${m[5]||"00"}`}}
+const clean=s=>fixText(String(s??"")).replace(/\s+/g," ").trim();
+function djb(s){let h=5381;for(const ch of s)h=(Math.imul(h,33)^ch.codePointAt(0))>>>0;return "e"+h.toString(16)}
+function parseFile(text){return parseRows(parseTSV(text))}
+/* Excel real (.xlsx/.xlsm, p. ej. EquiposOriosRed con la hoja "Ultima Toma"): se convierte a filas de texto */
+function workbookRows(buf,wb){
+  if(typeof XLSX==="undefined")throw new Error("Para leer archivos de Excel la página necesita conexión a internet.");
+  wb=wb||XLSX.read(new Uint8Array(buf),{type:"array",cellDates:true});
+  const p2=n=>String(n).padStart(2,"0");
+  const cell=v=>v instanceof Date?`${p2(v.getDate())}/${p2(v.getMonth()+1)}/${v.getFullYear()} ${p2(v.getHours())}:${p2(v.getMinutes())}`:(v==null?"":String(v));
+  const pref=["ultima toma","ultimatoma","todas tomas","equiposorios"];
+  const rk=n=>{const i=pref.indexOf(String(n).toLowerCase().trim());return i<0?99:i};const names=wb.SheetNames.slice().sort((a,b)=>rk(a)-rk(b));
+  for(const n of names){
+    const rows=XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,defval:""}).map(r=>r.map(cell));
+    const hi=rows.slice(0,15).findIndex(r=>{const h=r.map(x=>COLS[nk(x)]);return h.includes("equipo")&&h.includes("estatus")&&h.includes("fecha")});
+    if(hi>=0)return {rows:rows.slice(hi).filter(r=>r.some(x=>String(x).trim())),sheet:n};
+  }
+  throw new Error("El Excel no tiene una hoja con las columnas Equipo, Estatus y Fecha monitoreo (por ejemplo la hoja “Ultima Toma”).");
+}
+/* ---------- Pruebas eléctricas (Excel "GDL - Pruebas Motores"): hoja Indice + una hoja por motor ----------
+   Indice: estado actual de cada motor (Normal / Precaución / Alarma) y su última prueba.
+   Hoja <n>: historial de pruebas de aislamiento. Bloque izquierdo = Estator (CA) / Armadura (CD), bloque derecho (+36 columnas) =
+   Rotor (CA) / Campo (CD). Fila 13/14: límites de precaución y alarma de la resistencia de aislamiento (100 / 75 MΩ).
+   La misma lógica está en scripts/build_seed.py (semilla); si cambias una, cambia la otra. */
+const ESTADO={normal:"DL",n:"DL",precaucion:"P2",p:"P2",alarma:"P1",a:"P1"};
+const PB_COMP=["Estator (CA) / Armadura (CD)","Rotor (CA) / Campo (CD)"];
+/* filas desde A1 (sheet_to_json empieza en la primera celda usada; aquí se fija en A1 para que las columnas coincidan con Excel) */
+function sheetA1(sh){if(!sh||!sh["!ref"])return [];const rg=XLSX.utils.decode_range(sh["!ref"]);rg.s.r=0;rg.s.c=0;return XLSX.utils.sheet_to_json(sh,{header:1,raw:true,defval:"",range:rg})}
+function isPruebasWb(wb){const s=wb.Sheets["Indice"];if(!s)return false;
+  const rows=sheetA1(s).slice(0,20);return rows.some(r=>r.some(x=>nk(x)==="motor")&&r.some(x=>nk(x)==="hoja"))}
+function parsePruebas(wb){
+  const p2=n=>String(n).padStart(2,"0"),iso=d=>`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+  const num=v=>{if(typeof v==="number")return v;const s=String(v??"").replace(",",".").trim();return /^-?\d+(\.\d+)?$/.test(s)?+s:null};
+  const fmt=v=>{const n=num(v);return n==null?(String(v??"").trim()||"—"):(Math.round(n*100)/100).toLocaleString("es-MX")};
+  const txt=v=>String(v??"").replace(/\s+/g," ").replace(/^[\s,]+|[\s,]+$/g,"").trim();
+  const rows=sheetA1(wb.Sheets["Indice"]);const limite=new Date(Date.now()+864e5);let futuras=0;
+  const hi=rows.findIndex(r=>r.some(x=>nk(x)==="motor")&&r.some(x=>nk(x)==="hoja"));const H=rows[hi].map(nk);
+  const ci=(name,from=0)=>H.indexOf(name,from);
+  const cH=ci("hoja"),cM=ci("motor"),cA=ci("area"),cT=ci("tipo"),cMa=ci("marca"),cHP=H.findIndex(h=>h.startsWith("hp")),cF1=H.findIndex(h=>h.startsWith("fechadeultimaprueba"));
+  const cF2=H.findIndex((h,i)=>i>cF1&&h.startsWith("fechadeultimaprueba"));
+  const cCom=ci("comentarios"),cOT=ci("ot"),cEst=ci("estatus"),cPl=ci("planta");
+  let cGen=-1;for(let j=cPl+1;j<H.length&&cGen<0;j++){const vals=rows.slice(hi+1).map(r=>nk(r[j])).filter(Boolean);if(vals.length>10&&vals.every(v=>v in ESTADO))cGen=j}
+  const tomas=[];let otras=0,bad=0,pruebas=0;
+  for(const r of rows.slice(hi+1)){
+    const name=txt(r[cM]),hoja=String(r[cH]).trim();if(!name||hoja===""){continue}
+    if(cPl>=0&&r[cPl]&&!/guadalajara|gdl/i.test(String(r[cPl]))){otras++;continue}
+    let area=txt(r[cA])||"Sin área";area=area[0].toUpperCase()+area.slice(1);
+    const base={id:djb("pruebas-motor|"+hoja),equipo:name,seccion:area,area,linea:r[cT]?"Tipo "+txt(r[cT]):"",planta:txt(r[cPl])||"Guadalajara",activo:!/^no/i.test(txt(r[cEst]))};
+    /* historial: hoja del motor */
+    const byDate=new Map();const sh=wb.Sheets[hoja];
+    if(sh){const R=sheetA1(sh);
+      [0,36].forEach((o,bi)=>{const lp=num((R[12]||[])[12+o])??100,la=num((R[13]||[])[12+o])??75;
+        for(const x of R.slice(18,110)){const d=x[9+o];if(!(d instanceof Date)||d.getFullYear()<1990)continue;if(d>limite){futuras++;continue}
+          const Rv=num(x[28+o])??num(x[12+o]);if(Rv==null)continue;pruebas++;
+          const e=Rv<la?"P1":Rv<lp?"P2":"DL";const f=iso(d);
+          const s=e==="DL"?"":`Resistencia de aislamiento ${e==="P1"?"en alarma":"en precaución"}: ${fmt(Rv)} MΩ (precaución < ${lp} MΩ, alarma < ${la} MΩ)`;
+          const k=[`Prueba ${fmtD(f)}: aislamiento ${fmt(Rv)} MΩ · IA ${fmt(x[30+o])} · IP ${fmt(x[32+o])}`,txt(x[8+o])?"equipo "+txt(x[8+o]):"",txt(x[34+o]),txt(x[35+o])?"OT "+txt(x[35+o]):""].filter(Boolean).join(" · ");
+          if(!byDate.has(f))byDate.set(f,{f,e,comp:[]});const tm=byDate.get(f);if(RANK[e]>RANK[tm.e])tm.e=e;tm.comp.push({c:PB_COMP[bi],s,r:"",k})}});}
+    /* estado actual: Indice */
+    const blocks=[[cF1,0],[cF2,1]].filter(([c])=>c>=0).map(([c,bi])=>({bi,d:r[c],R:r[c+1],IP:r[c+2],E:ESTADO[nk(r[c+3])]||""})).filter(b=>b.d instanceof Date&&b.d.getFullYear()>=1990&&(b.d<=limite||(futuras++,false)));
+    const gen=cGen>=0?ESTADO[nk(r[cGen])]:"";
+    if(!blocks.length&&!byDate.size){bad++;continue}
+    const fUlt=blocks.length?blocks.map(b=>iso(b.d)).sort().pop():[...byDate.keys()].sort().pop();
+    const coment=[txt(r[cCom]),txt(r[cOT])?"OT "+txt(r[cOT]):""].filter(Boolean).join(" · ");
+    const compAct=blocks.length?blocks.map(b=>{const e=b.E||"DL";const Rv=num(b.R);
+      return {c:PB_COMP[b.bi],s:e==="DL"?"":(Rv!=null?`Resistencia de aislamiento ${e==="P1"?"en alarma":"en precaución"}: ${fmt(Rv)} MΩ`:`Estado ${e==="P1"?"Alarma":"Precaución"} según el índice (sin valor de resistencia)`),r:"",
+        k:[`Última prueba ${fmtD(iso(b.d))}: aislamiento ${fmt(b.R)} MΩ · IP ${fmt(b.IP)}`,coment].filter(Boolean).join(" · ")}}):(byDate.get(fUlt)||{comp:[]}).comp;
+    const eAct=gen||(blocks.length?blocks.map(b=>b.E||"DL"):[(byDate.get(fUlt)||{e:"DL"}).e]).reduce((m,e)=>RANK[e]>RANK[m]?e:m,"DL");
+    byDate.set(fUlt,{f:fUlt,e:eAct,comp:compAct});
+    [...byDate.values()].sort((a,b)=>a.f<b.f?-1:1).forEach(tm=>tomas.push(Object.assign({},base,{estatus:tm.e,fecha:tm.f,hora:"00:00",comp:tm.comp})));
+  }
+  return {tomas,dup:0,bad,otras,filas:pruebas,futuras};
+}
+/* ---------- Pruebas por bloques: "GDL - Pruebas Interruptores", "GDL - Pruebas Transformadores" ----------
+   Indice: un renglón por equipo (Hoja, Nombre, Ubicación, Tipo, Estatus equipo/Activo, Planta, Estatus general).
+   Hoja <n>: varios bloques de prueba lado a lado (Condición física, Operación, Pruebas eléctricas, Relevador /
+   Fisicoquímico del aceite, Cromatografía, Pruebas eléctricas…). En cada bloque la fila 14 tiene "Fecha de la prueba" o
+   "Fecha de muestra", la fila 15 los encabezados Estado / Observaciones / Acción / OT y las pruebas van en las filas 16–32.
+   Los bloques se detectan solos (solo cuentan los que tienen columna Estado, igual que el Indice).
+   Estado: Buen Estado = DL, Monitorear = P2, cualquier otro resultado (Fuera de tolerancia/parámetros, Falla, Regenerar…) = P1.
+   El estatus de una fecha es el peor de la última prueba de cada bloque hasta esa fecha.
+   La misma lógica está en scripts/build_seed.py; si cambias una, cambia la otra. */
+const estBq=v=>{const k=nk(v);if(!k||k==="noactivo"||k==="vencido"||k==="sinregistro")return "";if(k==="buenestado"||k==="ok")return "DL";if(k==="monitorear")return "P2";return "P1"};
+function isBloquesWb(wb){const s=wb.Sheets["Indice"];if(!s)return false;
+  return sheetA1(s).slice(0,25).some(r=>r.some(x=>nk(x)==="hoja")&&r.some(x=>nk(x)==="nombre"))}
+const wbTitulo=wb=>sheetA1(wb.Sheets["Indice"]).slice(0,10).flat().map(nk).filter(Boolean);
+function parseBloques(wb,M){
+  const p2=n=>String(n).padStart(2,"0"),iso=d=>`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+  const txt=v=>String(v??"").replace(/\s+/g," ").replace(/^[\s,]+|[\s,]+$/g,"").trim();
+  const cl=v=>v===0||v==="0"?"":v instanceof Date?fmtD(iso(v)):txt(v);   /* las fórmulas del Indice dejan 0 en celdas vacías */
+  const mv=v=>typeof v==="number"?String(+v.toPrecision(6)):txt(v);
+  const rows=sheetA1(wb.Sheets["Indice"]);const limite=new Date(Date.now()+864e5);let futuras=0;
+  const hi=rows.findIndex(r=>r.some(x=>nk(x)==="hoja")&&r.some(x=>nk(x)==="nombre"));const H=rows[hi].map(nk);
+  const ci=f=>H.findIndex(f);
+  const cH=ci(h=>h==="hoja"),cN=ci(h=>h==="nombre"),cU=ci(h=>h==="ubicacion"),cT=ci(h=>h==="tipotransformador")>=0?ci(h=>h==="tipotransformador"):ci(h=>h==="tipo"),cPl=ci(h=>h==="planta"),
+    cAct=ci(h=>h==="estatusequipo"||h==="estatusactivo"),nBq=H.filter(h=>h==="fecha").length||99;   /* bloques que usa el Indice */
+  const okName=v=>{const t=txt(v);return /[A-Za-zÁÉÍÓÚáéíóú%]/.test(t)&&!/:$/.test(t)&&!/^(min|max|l[ií]mite)$/i.test(t)?t:""};
+  const tomas=[];let otras=0,bad=0,pruebas=0;
+  for(const r of rows.slice(hi+1)){
+    const name=txt(r[cN]),hoja=txt(r[cH]);if(!name||!hoja||hoja==="0"||nk(hoja)==="ejemplo")continue;
+    if(cPl>=0&&r[cPl]&&!/guadalajara|gdl/i.test(String(r[cPl]))){otras++;continue}
+    let area=txt(r[cU])||"Sin área";area=area[0].toUpperCase()+area.slice(1);
+    const base={id:djb("bloques-"+M.id+"|"+hoja),equipo:name,seccion:area,area,linea:cT>=0&&txt(r[cT])?txt(r[cT]):"",
+      planta:txt(r[cPl])||"Guadalajara",activo:!/^no/i.test(txt(r[cAct]))};
+    const sh=wb.Sheets[hoja];if(!sh){bad++;continue}
+    const R=sheetA1(sh),r6=R[5]||[],r14=R[13]||[],r15=R[14]||[];
+    const fechas=[];r14.forEach((v,j)=>{const k=nk(v);if(k.startsWith("fechade")&&(k.includes("prueba")||k.includes("muestra"))&&fechas.length<nBq)fechas.push(j)});
+    const blocks=[];fechas.forEach((cf,i)=>{const fin=i+1<fechas.length?fechas[i+1]:r15.length;let ce=-1;
+      for(let j=cf+1;j<fin;j++)if(/^(estado|recomendacion)/.test(nk(r15[j]))){ce=j;break}
+      if(ce<0)return;
+      const find=re=>{for(let j=ce+1;j<Math.min(fin,ce+6);j++)if(re.test(nk(r15[j])))return j;return -1};
+      blocks.push({t:txt(r6[cf-1])||txt(r6[cf])||"Prueba "+(i+1),cf,ce,co:find(/^observ/),ca:find(/^accion/),cot:find(/^ot$/)})});
+    const tests=[];
+    blocks.forEach((b,bi)=>{for(const x of R.slice(15,32)){const d=x[b.cf];if(!(d instanceof Date)||d.getFullYear()<1990)continue;
+      if(d>limite){futuras++;continue}
+      const est=txt(x[b.ce]),e=estBq(est);if(!e)continue;pruebas++;
+      const meds=[];let nOK=0,grp="";
+      for(let j=b.cf+2;j<b.ce;j++){
+        /* nombre de la medición: filas 12, 11 o 10 (la primera con texto); si la celda está combinada, grupo + subtítulo de la fila 14 */
+        const nm=okName((R[11]||[])[j])||okName((R[10]||[])[j])||okName((R[9]||[])[j]);if(nm)grp=nm;
+        const sub=txt(r14[j]),label=(nm||(sub?grp:""))+(sub?" "+sub:"");
+        const v=x[j];if(v instanceof Date)continue;const s=mv(v);if(!s||s==="-"||nk(s)==="na")continue;
+        if(nk(s)==="ok"){nOK++;continue}
+        if(!label.trim())continue;
+        const u=txt(r15[j]);meds.push(`${label.trim()} ${s}${u?" "+u:""}`)}
+      if(nOK)meds.unshift(`${nOK} puntos OK`);
+      tests.push({f:iso(d),bi,e,est,cia:cl(x[b.cf-1]),obs:b.co>=0?cl(x[b.co]):"",acc:b.ca>=0?cl(x[b.ca]):"",ot:b.cot>=0?cl(x[b.cot]):"",meds:meds.slice(0,16)})}});
+    if(!tests.length){bad++;continue}
+    tests.sort((a,b)=>a.f<b.f?-1:a.f>b.f?1:a.bi-b.bi);
+    const last=new Map(),fechasEq=[...new Set(tests.map(t=>t.f))];
+    for(const f of fechasEq){
+      tests.filter(t=>t.f===f).forEach(t=>last.set(t.bi,t));
+      const comp=[...last.keys()].sort((a,b)=>a-b).map(bi=>{const t=last.get(bi);
+        return {c:blocks[bi].t,s:t.e==="DL"?"":t.est,r:t.acc,
+          k:[(t.f===f?"Prueba ":"Última prueba ")+fmtD(t.f)+(t.cia?" · "+t.cia:""),...t.meds,t.obs,t.ot?"OT "+t.ot:""].filter(Boolean).join(" · ")}});
+      const e=[...last.values()].map(t=>t.e).reduce((m,x)=>RANK[x]>RANK[m]?x:m,"DL");
+      tomas.push(Object.assign({},base,{estatus:e,fecha:f,hora:"00:00",comp}))}
+  }
+  return {tomas,dup:0,bad,otras,filas:pruebas,futuras};
+}
+function parseRows(rows){
+  if(rows.length<2)throw new Error("El archivo no tiene filas de datos.");
+  const head=rows[0].map(h=>COLS[nk(h)]);
+  for(const need of ["equipo","fecha","estatus"])if(!head.includes(need))throw new Error(`No encontré la columna "${need==="fecha"?"Fecha monitoreo":need[0].toUpperCase()+need.slice(1)}". Revisa que sea el archivo de vibraciones exportado de Orios.`);
+  const seen=new Set();let dup=0,bad=0,otras=0;const tomas=new Map();
+  for(const r of rows.slice(1)){
+    const o={};head.forEach((k,i)=>{if(k)o[k]=clean(r[i])});
+    const sig=JSON.stringify(o);if(seen.has(sig)){dup++;continue}seen.add(sig);
+    if(o.planta&&!/guadalajara|gdl/i.test(o.planta)){otras++;continue}
+    const d=pDate(o.fecha);const st=(o.estatus||"").toUpperCase();
+    if(!o.equipo||!d||!(st in RANK)){bad++;continue}
+    const id=djb(o.equipo+"|"+(o.seccion||""));const tk=id+"@"+d.f;
+    let t=tomas.get(tk);
+    if(!t){t={id,equipo:o.equipo,seccion:o.seccion||"",area:o.area||"",linea:o.linea||"",planta:o.planta||"",activo:esActivo(o.activo),estatus:st,fecha:d.f,hora:d.h,comp:[]};tomas.set(tk,t)}
+    if(RANK[st]>RANK[t.estatus])t.estatus=st;
+    const c={c:o.comp||"",s:o.sint||"",r:o.rec||"",k:o.com||""};
+    if(!t.comp.some(x=>x.c===c.c&&x.s===c.s&&x.r===c.r&&x.k===c.k))t.comp.push(c);
+  }
+  return {tomas:[...tomas.values()],dup,bad,otras,filas:rows.length-1};
+}
+/* "Esta Activo": inactivo solo si lo dice claro (No, Falso, Inactivo, 0). Si la columna no viene o trae Sí / VERDADERO / Activo / 1,
+   el equipo cuenta como activo; antes solo "Si" contaba y un Excel con otro valor dejaba todo en 0 con "Solo activos". */
+function esActivo(v){const k=nk(v);return !(k==="no"||k==="n"||k==="falso"||k==="false"||k==="inactivo"||k.startsWith("noactivo")||String(v??"").trim()==="0")}
+function merge(base,t,src){
+  const e=base?JSON.parse(JSON.stringify(base)):{hist:[]};
+  e.hist=e.hist||[];
+  const entry={f:t.fecha,h:t.hora,e:t.estatus,a:t.activo,comp:t.comp,src};
+  const i=e.hist.findIndex(h=>h.f===t.fecha);let nueva=false;
+  if(i<0){e.hist.push(entry);nueva=true}else{const o=e.hist[i];if(o.e!==t.estatus||JSON.stringify(o.comp||[])!==JSON.stringify(t.comp))e.hist[i]=Object.assign({},o,entry,{src:o.src&&JSON.stringify(o.comp||[])===JSON.stringify(t.comp)?o.src:src})}
+  e.hist.sort((a,b)=>a.f<b.f?-1:1);
+  if(!base||t.fecha>=base.fecha){const {comp,...rest}=t;Object.assign(e,rest,{comp})}
+  return {e,nueva};
+}
+
+/* ---------- actualizar ---------- */
+let pending=null,busy=false;
+function openModal(){pending=null;$("#modal").hidden=false;const M=modInfo(S.mod);$("#mTitle").textContent="Actualizar datos de "+M.name.toLowerCase();
+  const canDir=typeof window.showDirectoryPicker==="function"&&window.isSecureContext!==false;
+  const PB=!!M.parser;
+  const fuente=PB?`<span class="mono">${esc(M.archivo)}</span> (hoja “Indice” y una hoja por equipo con su historial de pruebas)`:`<span class="mono">EquiposOrios.txt</span>, <span class="mono">equipos.xls</span> o <span class="mono">EquiposOriosRed.xlsm</span> (hoja “Ultima Toma”)`;
+  $("#mBody").innerHTML=(S.mod!=="vib"&&!PB?`<div class="banner">Carga el reporte de <b>${esc(M.name.toLowerCase())}</b> exportado de Orios para planta Guadalajara. Debe traer las mismas columnas que el de vibraciones (Planta, Área, Línea, Sección, Fecha monitoreo, Equipo, Estatus, Componente, Síntoma, Recomendación). Si trae otras, hay que ajustar la lectura.</div>`:"")+
+  (canDir?`<div class="card" style="gap:8px"><b>Desde la carpeta sincronizada (SharePoint / OneDrive)</b>
+    <div class="sub">Toma el archivo más reciente de la carpeta: ${fuente}. La primera vez elige la carpeta, por ejemplo <b>OneDrive › Tablero predictivo</b> o <span class="mono">C:&#92;7SAP&#92;Export</span>.</div>
+    <div class="acts"><button type="button" class="primary" id="btnDir">Cargar desde carpeta</button><button type="button" id="btnDirNew" hidden>Cambiar carpeta</button><span class="sub" id="dirInfo"></span></div></div>`:"")+
+  (PB?"":`<details class="toma" ${canDir?"":"open"}><summary><b>Descargar de Orios</b><span class="sub">si el archivo de la carpeta no está al día</span></summary><div class="tb"><div class="steps">
+  <div class="step"><div><b>Abre Orios e inicia sesión</b><div class="sub">Se abre en otra pestaña. Entra con tu usuario de Orios.</div><a href="${ORIOS_URL}" target="_blank" rel="noopener" style="display:inline-block;margin-top:6px">Abrir Orios ↗</a></div></div>
+  <div class="step"><div><b>Ve a Equipos</b><div class="sub">En el menú de la izquierda, elige <b>Equipos</b>.</div></div></div>
+  <div class="step"><div><b>Filtra planta Guadalajara</b><div class="sub">Clic en el <b>embudo</b> (Criterios para filtrar) → en “Seleccionar planta” elige <b>Guadalajara</b> → <b>Búsqueda Avanzada</b>. Debe aparecer “GDL-Guadalajara”.</div></div></div>
+  <div class="step"><div><b>Descarga el reporte</b><div class="sub">Clic en el ícono verde de Excel que está junto al embudo (<b>Descargar a CSV</b>). Se descarga “equipos.xls”; no hay que convertirlo.</div></div></div>
+  </div></div></details>`)+`
+    <label class="drop" id="drop" for="file"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-5 5m5-5 5 5M4 20h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <b style="color:var(--fg)">O arrastra aquí un archivo</b><span class="sub">${PB?esc(M.archivo):".txt o .xls de Orios, o el Excel EquiposOriosRed"}. Se quitan duplicados, se filtra planta Guadalajara y se guarda el original.</span>
+    <input type="file" id="file" accept=".txt,.xls,.xlsx,.xlsm,.tsv,.csv,text/plain" hidden></label><div class="err" id="mErr" role="alert"></div>`;
+  const d=$("#drop");
+  ["dragenter","dragover"].forEach(t=>d.addEventListener(t,ev=>{ev.preventDefault();d.classList.add("over")}));
+  ["dragleave","drop"].forEach(t=>d.addEventListener(t,ev=>{ev.preventDefault();d.classList.remove("over")}));
+  d.addEventListener("drop",ev=>{const f=ev.dataTransfer.files[0];if(f)readFile(f)});
+  $("#file").onchange=ev=>{const f=ev.target.files[0];if(f)readFile(f)};
+  if(canDir){$("#btnDir").onclick=()=>loadFromFolder(false);$("#btnDirNew").onclick=()=>loadFromFolder(true);
+    idbGet("dir_"+S.mod).then(h=>{if(h){$("#dirInfo").textContent="Carpeta: "+h.name;$("#btnDirNew").hidden=false}})}
+}
+/* Carpeta sincronizada: se elige una vez (se recuerda por técnica) y se toma el archivo más reciente */
+const FOLDER_RX=/^(equiposorios.*\.(txt|xls|xlsx|xlsm)|equipos.*\.(xls|txt|csv))$/i;
+async function loadFromFolder(change){
+  $("#mErr").textContent="";
+  try{
+    let h=change?null:await idbGet("dir_"+S.mod);
+    if(h){let p=await h.queryPermission({mode:"read"});if(p!=="granted")p=await h.requestPermission({mode:"read"});if(p!=="granted")h=null}
+    if(!h){h=await window.showDirectoryPicker({id:"orios_"+S.mod,mode:"read"});await idbPut("dir_"+S.mod,h)}
+    let best=null;
+    for await(const [name,entry] of h.entries()){
+      if(entry.kind!=="file"||!(modInfo(S.mod).rx||FOLDER_RX).test(name.replace(/\s+/g,""))||/^~\$/.test(name))continue;
+      const f=await entry.getFile();if(!best||f.lastModified>best.lastModified)best=f}
+    if(!best){$("#mErr").textContent=`En la carpeta “${h.name}” no encontré ${modInfo(S.mod).archivo||"EquiposOrios.txt, equipos.xls ni EquiposOriosRed"}. Elige otra con “Cambiar carpeta”.`;$("#btnDirNew").hidden=false;return}
+    const dias=Math.floor((Date.now()-best.lastModified)/864e5);
+    const when=new Date(best.lastModified).toLocaleString("es-MX",{dateStyle:"medium",timeStyle:"short"});
+    const note=`Carpeta “${esc(h.name)}” · archivo modificado el <b>${when}</b>`+(dias>=2?`<br><b style="color:var(--p2)">Este archivo no se ha actualizado en ${dias} días.</b> Si necesitas datos más nuevos, descárgalos de Orios.`:"");
+    readFile(best,note);
+  }catch(e){if(e&&e.name==="AbortError")return;$("#mErr").textContent="Este navegador no deja leer la carpeta. Arrastra el archivo al recuadro."}
+}
+$("#btnUpload").onclick=openModal;
+$("#mClose").onclick=()=>{if(!busy)$("#modal").hidden=true};
+async function readFile(file,note){
+  $("#mErr").textContent="";
+  try{
+    const buf=await file.arrayBuffer();const u8=new Uint8Array(buf.slice(0,4));
+    const isWb=(u8[0]===0x50&&u8[1]===0x4B)||(u8[0]===0xD0&&u8[1]===0xCF);
+    let P,hoja="";
+    const M=modInfo(S.mod);
+    if(isWb){
+      if(typeof XLSX==="undefined")throw new Error("Para leer archivos de Excel la página necesita conexión a internet.");
+      $("#mErr").textContent="Leyendo el Excel…";await new Promise(r=>setTimeout(r,30));
+      const wb=XLSX.read(new Uint8Array(buf),{type:"array",cellDates:true,dense:true});$("#mErr").textContent="";
+      if(isPruebasWb(wb)){
+        if(M.parser!=="pruebas")throw new Error("Este archivo es de pruebas eléctricas (motores). Ábrelo desde el tablero de Motores en el inicio.");
+        hoja="Indice + hojas por motor";P=parsePruebas(wb);
+      }else if(isBloquesWb(wb)){
+        const tit=wbTitulo(wb),de=MODS.find(m=>m.parser==="bloques"&&tit.some(t=>t.includes(nk(m.name))));
+        if(M.parser!=="bloques"||(de&&de.id!==M.id))throw new Error(`Este archivo es de pruebas de ${de?de.name.toLowerCase():"equipos eléctricos"}. Ábrelo desde ${de?"el tablero de "+de.name:"su tablero"} en el inicio.`);
+        hoja="Indice + hojas por equipo";P=parseBloques(wb,M);
+      }else{if(M.parser)throw new Error(`Para ${M.name} carga el Excel “${M.archivo}” (con la hoja Indice).`);
+        const w=workbookRows(buf,wb);hoja=w.sheet;P=parseRows(w.rows)}
+    }else P=parseFile(decode(buf));
+    if(M.parser&&!isWb)throw new Error(`Para ${M.name} carga el Excel “${M.archivo}” (con la hoja Indice).`);
+    if(!P.tomas.length)throw new Error("No encontré equipos de planta Guadalajara en el archivo.");
+    const ts=Date.now(),src="c"+ts;
+    let nuevas=0,nuevosEq=0;const worse=[],changes=new Map();
+    for(const t of P.tomas){
+      const base=changes.get(t.id)||S.eq.get(t.id);
+      const orig=S.eq.get(t.id);
+      const {e,nueva}=merge(base,t,src);
+      if(!orig&&!changes.has(t.id))nuevosEq++;if(nueva)nuevas++;
+      if(orig&&t.fecha>orig.fecha&&RANK[t.estatus]>RANK[orig.estatus])worse.push({id:t.id,equipo:t.equipo,de:orig.estatus,a:t.estatus});
+      if(JSON.stringify(e)!==JSON.stringify(orig))changes.set(t.id,e);else changes.delete(t.id);
+    }
+    const corte=P.tomas.map(t=>t.fecha).sort().pop();
+    const last=new Map();P.tomas.forEach(t=>{const o=last.get(t.id);if(!o||t.fecha>o.fecha)last.set(t.id,t)});
+    const st={P1:0,P2:0,DL:0};last.forEach(t=>st[t.estatus]++);
+    pending={file,buf,changes:[...changes.values()],carga:{id:src,ts,archivo:file.name,corte,equipos:last.size,filas:P.filas,duplicados:P.dup,nuevas,nuevosEq,P1:st.P1,P2:st.P2,DL:st.DL,empeoraron:worse.slice(0,60)}};
+    $("#mBody").innerHTML=`<div class="banner">Archivo leído: <b>${esc(file.name)}</b>${hoja?` (hoja “${esc(hoja)}”)`:""} · corte al <b class="mono">${fmtD(corte)}</b>${note?`<br>${note}`:""}</div>
+      <div class="sumgrid"><div><span class="lbl">Equipos GDL</span><b>${last.size}</b></div><div><span class="lbl">Duplicados quitados</span><b>${P.dup}</b></div>
+      <div><span class="lbl">Muestras nuevas</span><b>${nuevas}</b></div><div><span class="lbl">Equipos nuevos</span><b>${nuevosEq}</b></div>
+      <div><span class="lbl" style="color:var(--p1)">P1</span><b style="color:var(--p1)">${st.P1}</b></div><div><span class="lbl" style="color:var(--p2)">P2</span><b style="color:var(--p2)">${st.P2}</b></div></div>
+      ${P.otras?`<div class="sub">${P.otras} filas de otras plantas se ignoraron.</div>`:""}${P.futuras?`<div class="sub" style="color:var(--p2)">${P.futuras} fecha${P.futuras>1?"s":""} de prueba a futuro se ignoraron (posible error de captura en el Excel).</div>`:""}${P.bad?`<div class="sub">${P.bad} filas sin equipo, fecha o estatus válido se ignoraron.</div>`:""}
+      ${worse.length?`<div><span class="lbl">Empeoraron con este archivo</span>${worse.slice(0,8).map(w=>`<div class="sub">${esc(w.equipo)} <span class="trend up">${lbl(w.de)} → ${lbl(w.a)}</span></div>`).join("")}${worse.length>8?`<div class="sub">y ${worse.length-8} más</div>`:""}</div>`:""}
+      ${pending.changes.length?"":`<div class="banner">Este archivo no trae nada nuevo: todas sus muestras ya estaban en el historial.</div>`}
+      <div class="prog" id="prog" hidden><i></i></div><div class="err" id="mErr" role="alert"></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap"><button type="button" id="mBack">Elegir otro archivo</button><button class="primary" type="button" id="mSave">Actualizar historial (${pending.changes.length} equipos)</button></div>`;
+    $("#mBack").onclick=openModal;$("#mSave").onclick=save;
+  }catch(err){$("#mErr").textContent=err.message||"No se pudo leer el archivo. Revisa que sea el exportado de Orios."}
+}
+async function withRetry(fn){let d=400;for(let i=0;i<6;i++){try{return await fn()}catch(e){if(!["resource_exhausted","unavailable"].includes(e?.code)||i===5)throw e;await new Promise(r=>setTimeout(r,d+Math.random()*300));d*=2}}}
+async function save(){
+  if(!pending||busy)return;
+  const P=pending;
+  if(S.mode!=="db"){
+    P.changes.forEach(e=>S.eq.set(e.id,e));S.eq=new Map(S.eq);syncStore();
+    let ok=false;
+    if(SEED){P.carga.local=true;await idbPut(P.carga.id,{name:P.file.name,buf:P.buf});S.cargas.unshift(P.carga);ok=saveLocal()}else S.cargas.unshift(P.carga);
+    $("#modal").hidden=true;renderAll();toast(ok?`Historial actualizado: ${P.changes.length} equipos, ${P.carga.nuevas} muestras nuevas.`:"Cargado solo en esta pantalla; no se guardó.");pending=null;return}
+  busy=true;$("#mSave").disabled=true;$("#mBack").disabled=true;$("#prog").hidden=false;
+  if(S.assets){try{const a=await S.assets.upload(new Blob([P.buf],{type:"text/plain"}));P.carga.asset={id:a.id,url:a.url}}catch(e){}}
+  const list=P.changes;let done=0,fail=null,idx=0;const col=S.db.collection(eqCol(S.mod));
+  async function worker(){while(idx<list.length&&!fail){const e=list[idx++];
+    try{await withRetry(()=>col.doc(e.id).set(e));done++;$("#prog i").style.width=(done/list.length*100)+"%"}catch(err){fail=err}}}
+  await Promise.all([worker(),worker(),worker(),worker()]);
+  if(!fail){try{await withRetry(()=>S.db.collection(cgCol(S.mod)).doc(P.carga.id).set(P.carga))}catch(e){fail=e}}
+  busy=false;
+  if(fail){$("#mErr").textContent=fail.code==="quota_exceeded"?"El historial llegó a su límite de tamaño.":fail.code==="invalid_argument"?"Tu acceso es solo de lectura; pide permiso de edición para actualizar.":`Se guardaron ${done} de ${list.length} equipos. Vuelve a cargar el mismo archivo para completar.`;
+    $("#mSave").disabled=false;$("#mBack").disabled=false;return}
+  $("#modal").hidden=true;toast(`Historial actualizado: ${list.length} equipos, ${P.carga.nuevas} muestras nuevas.`);pending=null;
+}
+
+/* ---------- archivos y Excel ---------- */
+function blobSave(name,blob){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+async function saveFile(name,blob){
+  if(S.dl){try{await S.dl.save({filename:name,data:blob});toast("Archivo descargado")}catch(e){if(e?.code!=="declined")toast("No se pudo descargar el archivo.")}return}
+  blobSave(name,blob);toast("Archivo descargado");
+}
+function xlsxSave(name,sheets){
+  if(typeof XLSX==="undefined")return toast("La exportación a Excel necesita conexión a internet.");
+  const wb=XLSX.utils.book_new();
+  sheets.forEach(([r,n])=>{const ws=XLSX.utils.json_to_sheet(r.length?r:[{Sin:"datos"}]);const ks=Object.keys(r[0]||{Sin:1});
+    ws["!cols"]=ks.map(k=>({wch:Math.min(60,Math.max(10,k.length+2,...r.slice(0,200).map(x=>String(x[k]??"").length)))}));XLSX.utils.book_append_sheet(wb,ws,n.slice(0,31))});
+  saveFile(name,new Blob([XLSX.write(wb,{bookType:"xlsx",type:"array"})]));
+}
+async function downloadOriginal(id){
+  const c=cargaById(id);if(!c)return;
+  const name=c.fname||(/\.(txt|csv)$/i.test(c.archivo)?c.archivo:(c.archivo.replace(/[^\w.-]+/g,"_")+".txt"));
+  try{
+    if(c.asset){const r=await fetch(c.asset.url);if(!r.ok)throw 0;return saveFile(name.replace(/\.xls$/i,".txt"),await r.blob())}
+    if(c.local){const o=SEED_FILES[id]?{name:SEED_FILES[id].name,buf:new TextEncoder().encode(SEED_FILES[id].text)}:await idbGet(id);if(!o)throw 0;return blobSave(/\.xls[xm]$/i.test(o.name)?o.name:o.name.replace(/\.xls$/i,".txt"),new Blob([o.buf]))}
+  }catch(e){}
+  toast("El archivo original no está disponible en esta vista.");
+}
+/* un solo libro con una sola hoja: un renglón por equipo con todos sus datos */
+async function exportXlsx(){
+  const F=filtered().sort((a,b)=>b.rank-a.rank||(b.dias??-1)-(a.dias??-1));
+  const cut=t=>t.length>32000?t.slice(0,32000)+"…":t;   /* límite de texto de una celda de Excel */
+  const one=(e,arr)=>arr.length>1||(e.comp||[]).length>1;
+  const rows=F.map(e=>{const C=e.comp||[],D=C.filter(c=>c.s),R=C.filter(c=>c.r),K=C.filter(c=>c.k&&(c.s||c.r||!D.length));
+    return {Estatus:lbl(e.estatus),Equipo:e.equipo,"Sección":e.seccion,"Área":e.area,"Línea":e.linea,Activo:e.activo?"Sí":"No",
+    "Último monitoreo":fmtD(e.fecha),"Falla desde":e.desde?(e.exacto?"":"al menos ")+fmtD(e.desde):"","Días en falla":e.dias??"",
+    "Número de muestras":e.ntomas,Tendencia:e.prev?`${lbl(e.prev.e)} → ${lbl(e.estatus)}`:"1ª muestra",
+    "Diagnóstico":cut(D.map(c=>(one(e,D)?c.c+": ":"")+c.s).join(" | ")),
+    "Recomendación":cut(R.map(c=>(one(e,R)?c.c+": ":"")+c.r).join(" | ")),
+    "Comentario del analista":cut(K.map(c=>(K.length>1?c.c+": ":"")+c.k).join(" | ")),
+    "Historial de estatus (más reciente primero)":cut([...(e.hist||[])].reverse().map(h=>fmtD(h.f)+" "+lbl(h.e)).join(" · "))}});
+  xlsxSave(`${"__FILEBRAND__"}_${modInfo(S.mod).name.replace(/\s+/g,"_")}_${today()}.xlsx`,[[rows,modInfo(S.mod).name]]);
+}
+$("#btnExport").onclick=exportXlsx;
+
+/* ---------- almacenamiento local (versión archivo) ---------- */
+const SEED_FILES=__SEEDFILES__;
+function idb(){return new Promise((res,rej)=>{try{const r=indexedDB.open("orios_files",1);r.onupgradeneeded=()=>r.result.createObjectStore("f");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}})}
+async function idbPut(k,v){try{const d=await idb();await new Promise((res,rej)=>{const t=d.transaction("f","readwrite");t.objectStore("f").put(v,k);t.oncomplete=res;t.onerror=()=>rej(t.error)})}catch(e){}}
+async function idbGet(k){try{const d=await idb();return await new Promise((res,rej)=>{const r=d.transaction("f").objectStore("f").get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}catch(e){return null}}
+const lsKey=m=>m==="vib"?"orios_data":"orios_data_"+m;  /* vibraciones conserva la clave original */
+function loadLocal(){
+  MODS.forEach(m=>{let d=null;try{d=JSON.parse(localStorage.getItem(lsKey(m.id))||"null")}catch(e){}
+    /* semilla: vibraciones en SEED.eq/cargas; las demás técnicas en SEED.mods[id] (ver scripts/build.py) */
+    const seed=!SEED?null:m.id==="vib"?SEED:(SEED.mods||{})[m.id]||null;
+    const src=d&&d.eq&&d.v===2?d:(seed||{eq:[],cargas:[]});
+    S.store[m.id]={eq:new Map(src.eq.map(e=>[e.id,e])),cargas:(src.cargas||[]).slice().sort((a,b)=>b.ts-a.ts)};
+    if(seed&&src===seed){try{localStorage.setItem(lsKey(m.id),JSON.stringify({v:2,eq:src.eq,cargas:src.cargas}))}catch(e){}}});
+}
+function saveLocal(){
+  syncStore();
+  try{localStorage.setItem(lsKey(S.mod),JSON.stringify({v:2,eq:[...S.eq.values()],cargas:S.cargas.slice(0,300)}));return true}
+  catch(e){showBanner("No se pudo guardar en este navegador (ventana privada o almacenamiento lleno). Lo que cargues se perderá al cerrar.");return false}
+}
+
+/* colecciones del Artifact: vibraciones conserva los nombres originales */
+const eqCol=m=>m==="vib"?"equipos":"equipos_"+m, cgCol=m=>m==="vib"?"cargas":"cargas_"+m;
+/* ---------- boot ---------- */
+function showBanner(msg){const b=$("#dbBanner");b.hidden=false;b.textContent=msg||"Esta vista no tiene acceso al historial compartido. Puedes cargar un archivo para revisarlo, pero no se guardará."}
+(async function boot(){
+  const t=ls("orios_tab");if(t&&$(`#tabs [data-t="${t}"]`)){S.tab=t;$$("#tabs [role=tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t))}
+  $("#btnExport").hidden=typeof XLSX==="undefined";
+  if(SEED){S.mode="local";loadLocal();renderAll();return}
+  const api=window.claude;
+  if(!api||!api.use){S.mode="local";showBanner();renderAll();return}
+  renderAll();
+  api.use("downloads").then(d=>{S.dl=d}).catch(()=>{});
+  api.use("assets").then(a=>{S.assets=a}).catch(()=>{});
+  let db=null;try{db=await api.use("db")}catch(e){}
+  if(!db){S.mode="local";showBanner();renderAll();return}
+  S.db=db;S.mode="db";
+  MODS.forEach(M=>{const id=M.id;
+    db.collection(eqCol(id)).limit(1000).onSnapshot(snap=>{const m=new Map();snap.docs.forEach(d=>{if(d.exists)m.set(d.id,d.data())});S.store[id].eq=m;if(S.mod===id)S.eq=m;renderAll()},
+      ()=>{showBanner("Se perdió la conexión con el historial compartido. Recarga la página.")});
+    db.collection(cgCol(id)).orderBy("ts","desc").limit(200).onSnapshot(snap=>{const c=snap.docs.filter(d=>d.exists).map(d=>Object.assign({id:d.id},d.data()));S.store[id].cargas=c;if(S.mod===id)S.cargas=c;renderAll()},()=>{})});
+})();
+</script>

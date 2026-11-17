@@ -1,0 +1,14 @@
+[
+ {
+  "id": "c_seed_tra",
+  "ts": 1793147000000,
+  "archivo": "GDL - Pruebas Transformadores_v1.xlsm",
+  "fname": "GDL - Pruebas Transformadores_v1_sin_macros.xlsx",
+  "corte": "2026-09-09",
+  "equipos": 34,
+  "filas": 643,
+  "duplicados": 0,
+  "nuevas": 370,
+  "empeoraron": []
+ }
+]

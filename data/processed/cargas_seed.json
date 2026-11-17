@@ -1,0 +1,32 @@
+[
+ {
+  "id": "c_seed_txt",
+  "ts": 1792694253825,
+  "archivo": "EquiposOrios.txt (corte 15/10/2026)",
+  "fname": "EquiposOrios_2026-10-15.txt",
+  "corte": "2026-10-15",
+  "equipos": 341,
+  "filas": 1244,
+  "duplicados": 76,
+  "nuevas": 341,
+  "empeoraron": []
+ },
+ {
+  "id": "c_seed_2024",
+  "ts": 1792694253000,
+  "archivo": "2024_Monitor_Status.xlsx · hoja equipos vibraciones",
+  "fname": "2024_Monitor_Status_equipos_vibraciones.csv",
+  "corte": "2024-10-15",
+  "filas": 1130,
+  "empeoraron": []
+ },
+ {
+  "id": "c_seed_tiempo",
+  "ts": 1792694252000,
+  "archivo": "EquiposOriosRed.xlsm · hoja Tiempo",
+  "fname": "EquiposOriosRed_hoja_Tiempo.csv",
+  "corte": "2025-03-13",
+  "filas": 335,
+  "empeoraron": []
+ }
+]

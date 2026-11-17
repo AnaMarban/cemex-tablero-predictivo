@@ -1,0 +1,10 @@
+# Netlify: publica la carpeta dist/ (no hace falta compilar en Netlify; dist/ ya va compilado en el repo).
+# Al abrir la dirección del sitio se muestra el tablero (dist/Cemex_Orios.html).
+[build]
+  publish = "dist"
+  command = ""
+
+[[redirects]]
+  from = "/"
+  to = "/Cemex_Orios.html"
+  status = 200
